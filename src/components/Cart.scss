@@ -1,0 +1,21 @@
+@import '../global';
+
+.cart {
+
+    padding: 0 0;
+    margin: 3em 0;
+
+    li {
+        list-style-type: none;
+        margin: 1em 0;
+    }
+
+    li a.left-half {
+        margin-left: -.5em;
+    }
+
+    small {
+        display: inline-block;
+    }
+
+}

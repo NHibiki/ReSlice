@@ -1,0 +1,41 @@
+@import 'global';
+
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    @include globalFonts;
+    background: $bgColor;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: baseline;
+
+    div.container {
+
+        // margin-top: 4em;
+        // @include phoneMedia {
+        //     margin-top: 2em;
+        // }
+        margin: 0 auto;
+        width: $pageSize;
+        max-width: $pageMaximum;
+
+        h1, h2, h3, h4, h5 {
+            color: #444;
+            text-shadow: 0 0 10px rgba(0, 0, 0, .25);
+        }
+
+    }
+
+}

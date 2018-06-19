@@ -1,0 +1,110 @@
+@import '../global';
+
+.header {
+
+    margin: $avatarSize / 2 $avatarSize / 2;
+    margin-left: 0;
+    @include phoneMedia {
+        margin-top: 1em;
+    }
+
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    @include globalFontsR;
+    text-shadow: 0 5px 25px rgba(0, 0, 0, .15);
+
+    a {
+        white-space: nowrap;
+        color: $titleColor;
+        outline: none;
+        text-decoration: none;
+        font-weight: bold;
+        height: $avatarSize;
+        font-size: $titleSize;
+        @include phoneMedia {
+            font-size: $titleSize - 2px;
+        }
+    }
+
+    &>a {
+        display: inline-flex;
+        align-items: center;
+        list-style-type: none;
+        height: $avatarSize;
+
+        img {
+            width: $avatarSize;
+            height: $avatarSize;
+            border-radius: $avatarSize;
+        }
+    
+        span {
+            margin-left: $titleSize * 1.5;
+            @include phoneMedia {
+                display: none;
+            }
+        }
+
+    }
+
+    .navbar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+        list-style-type: none;
+        height: $avatarSize;
+        margin: 0 0;
+        padding: 0 0;
+
+        a {
+            margin-left: $titleSize / 2;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: .2s linear;
+            @include phoneMedia {
+                margin-left: 2px;
+            }
+        }
+
+        a:hover {
+            color: $bgColor;
+            background-color: $titleColor;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, .25);
+        }
+
+    }
+    
+}
+
+.footer {
+    
+    color: $footColor;
+    @include globalFonts;
+    margin: 4em 0;
+    font-size: 12px;
+    @include phoneMedia {
+        font-size: 10px;
+    }
+
+    span {
+
+        display: block;
+        margin-bottom: .4em;
+        text-align: center;
+        transition: .2s linear;
+
+        &:hover {
+            color: darken($footColor, 20%);
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: darken($footColor, 20%);
+        }
+
+    }
+
+}

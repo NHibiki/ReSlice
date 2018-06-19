@@ -1,0 +1,47 @@
+@import '../global';
+
+.list {
+
+    display: inline-block;
+    padding: 0 0;
+    margin-top: 0em;
+
+    li {
+        display: inline;
+
+        a {
+            text-decoration: none;
+            color: lighten($titleColor, 30%);
+            font-weight: bold;
+            margin-right: 1em;
+            transition: .2s linear;
+            text-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+
+            svg {
+                text-shadow: 0 5px 8px rgba(0, 0, 0, .15);
+            }
+
+            &:hover {
+                color: lighten($titleColor, 5%);
+                text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+            }
+        }
+
+        svg {
+            margin-right: .5em;
+        }
+
+    }
+
+    &.tags > li > a {
+
+        $aColor: rgb(red($titleColor) / 1.2, green($titleColor) * 2, blue($titleColor) / 1.2);
+        color: $aColor;
+
+        &:hover {
+            color: darken($aColor, 15%);
+        }
+
+    }
+
+}

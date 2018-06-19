@@ -1,0 +1,63 @@
+$bgColor: #F8F8F8;
+$wdColor: #FF4F7F;
+$pageColor: #FFF;
+
+$pageSize: 780px;
+$pageMaximum: 90%;
+
+$articleColor: #455;
+$codeBack: #566;
+$codeColor: #EEE;
+$fontSize: 16px;
+
+$avatarSize: 50px;
+$titleSize: 16px;
+$titleColor: #455;
+$footColor: #9AA;
+
+$ballSize: 16px;
+
+@mixin globalFonts {
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+@mixin globalFontsR {
+    font-family: helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+@mixin artFonts {
+    font-family: "Century Gothic", Futura, sans-serif;
+}
+
+@mixin adjustPaddingWidth($origin: 100%, $shorten: 0em) {
+    width: calc(#{$origin} - #{$shorten} - #{$shorten});
+    padding-left: $shorten;
+    padding-right: $shorten;
+}
+
+@mixin createPill($color) {
+    color: transparentize($color: $color, $amount: .3);
+    border : 2px solid transparentize($color: $color, $amount: .3);
+    &:hover {
+        background: $color;
+        color: #FFF;
+    }
+}
+
+@mixin phoneMediaSearch {
+    @media only screen and (max-width: 580px) {
+        @content;
+    };
+}
+
+@mixin phoneMedia {
+    @media only screen and (max-width: 410px) {
+        @content;
+    };
+}
+
+@mixin pcMedia {
+    @media only screen and (min-width: 410px) {
+        @content;
+    };
+}

@@ -1,0 +1,169 @@
+@import '../global';
+
+.titlebar {
+
+    h1 {
+        font-size: 1.5em;
+        margin: 2em 0;
+        margin-bottom: .5em;
+    }
+
+}
+
+.article {
+
+    color:$articleColor;
+    text-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    font-weight: normal;
+
+    * {
+        max-width: 100%;
+    }
+
+    img, video, audio, canvas, iframe, frame {
+        margin: 0 auto;
+        display: block;
+    }
+
+    a {
+        text-decoration: none;
+        color: lighten($articleColor, 25%);
+        transition: .2s linear;
+        text-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+
+        &:hover {
+            color: lighten($articleColor, 5%);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+        }
+
+    }
+
+
+    h1, h2, h3, h4, h5 {
+        font-weight:bold;
+        color: darken($articleColor, 5%);
+    }
+
+    h1, h2, h3 {
+        margin-top: 2em;
+    }
+
+    p {
+        font: inherit;
+        line-height: 2;
+        vertical-align: center;
+        font-size: $fontSize;
+    }
+
+    p > code {
+        font-size: $fontSize - 4px;
+        height: $fontSize;
+        line-height: $fontSize;
+        padding: 2px 5px;
+        border-radius: 2px;
+        background-color: $codeBack;
+        color: $codeColor;
+    }
+
+    blockquote {
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        -webkit-margin-start: 0;
+        -webkit-margin-end: 0;
+        margin: 2em 0;
+        padding: 10px 30px;
+        border-radius: 5px;
+
+        color: $codeColor;
+        background-color: $codeBack;
+
+        p {
+            color: inherit;
+            margin: 0 0;
+        }
+
+        a:hover {
+            color: lighten($codeColor, 5%);
+        }
+
+    }
+
+    pre code.hljs {
+
+        border-radius: 4px;
+        margin: 1em 0;
+        padding: 1em 2em;
+        line-height: 1.3em;
+        counter-reset: codeline;
+
+        cbr:before {
+            color: #888;
+            display: inline-block;
+            counter-increment: codeline;
+            content: counter(codeline) "." ;
+            min-width: 25px;
+            margin-left: -15px;
+            margin-right: 5px;
+            text-align: right;
+            transition: .2s linear;
+        }
+        
+        cbr:hover::before {
+            color: white;
+        }        
+        
+    }
+
+}
+
+.pagenav {
+
+    margin: 2em 0;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    
+    svg {
+        font-size: 2.5em;
+    }
+
+    a {
+        color: lighten($articleColor, 30%);
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-flex;
+        max-width: 40%;
+        position: relative;
+        transition: .2s linear;
+        border-radius: 3px;
+        text-shadow: 0 5px 10px rgba(0, 0, 0, .15);
+
+        span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            line-height: 40px;
+        }
+
+        &.left:not(.no) {
+            padding-right: 1em;
+        }
+
+        &.right {
+            &:not(.no) {
+                padding-left: 1em;
+            }
+            text-align: right;
+        }
+
+        &:hover {
+            background-color: lighten($articleColor, 30%);
+            color: lighten($articleColor, 60%);
+            text-shadow: none;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, .2);
+        }
+
+    }
+
+}

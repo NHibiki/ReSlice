@@ -98,7 +98,7 @@ export default class Article extends Component {
 
     render() {
 
-        const {title, tags, categories} = this.state.def || EMPTY;
+        const {title, tags, categories, date} = this.state.def || EMPTY;
         const rel = this.state.relation;
 
         return <div>
@@ -107,7 +107,9 @@ export default class Article extends Component {
                 <List type="categories" data={categories} />
                 <List type="tags" data={tags} />
             </div>
-            <ReactMarkdown source={this.state.content} className="article" />
+            <ReactMarkdown escapeHtml={false} source={this.state.content} className="article" />
+            <p className="composeTime">{date}</p>
+            {/* <hr /> */}
             <div className="pagenav">
                 {rel[0] ? <Link to={`/articles/${rel[0].id}`} className={isC(rel[0].def.title) ? "left no" : "left"}><Left/><span>{rel[0].def.title}</span></Link> : null}
                 <span></span>

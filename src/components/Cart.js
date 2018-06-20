@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getContent, switchTitle, isC } from '../lib/Api';
+import { getContent, switchTitle, isC, GF } from '../lib/Api';
 
 import './Cart.scss';
 
@@ -28,13 +28,19 @@ export default class Cart extends Component {
         getContent().then(rawContent => {
             let content = rawContent.article[this.state.type][this.state.id] || [];
             let articles = rawContent.article.articles;
+            content.sort((a, b) => new Date(articles[a].date) < new Date(articles[b].date) ? 1 : -1);
             this.setState({content, articles});
+            setTimeout(() => {
+                GF.loader && GF.loader(false);
+            }, 1000);
         }).catch(error => {
             console.log("Time Out!");
+            GF.loader && GF.loader(false);
         });
     }
 
     componentDidMount() {
+        GF.loader && GF.loader();
         this.fetchContent();
     }
 

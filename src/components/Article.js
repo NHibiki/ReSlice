@@ -6,7 +6,7 @@ import Highlight from '../../node_modules/highlight.js/lib/index';
 import Right from 'react-icons/lib/fa/angle-right';
 import Left  from 'react-icons/lib/fa/angle-left';
 
-import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF } from '../lib/Api';
+import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF, Settings } from '../lib/Api';
 import List from './List';
 
 import './Article.scss';
@@ -38,6 +38,18 @@ export default class Article extends Component {
                 }
             });
         }
+    }
+
+    loadDisqus() {
+        const SN  = Settings.disqus;
+        const SID = "disqus_loading_script";
+        if (!SN) return;
+        var d = document, s = d.createElement('script'), ps = document.getElementById(SID);
+        if (ps) ps.remove();
+        s.id = SID;
+        s.src = `https://${SN}.disqus.com/embed.js`;
+        s.setAttribute('data-timestamp', +new Date());
+        d.head.appendChild(s);
     }
 
     fetchContent(id) {
@@ -90,6 +102,7 @@ export default class Article extends Component {
             mhtml = "<cbr>" + mhtml.split("\n").join("</cbr>\n<cbr>");
             block.innerHTML = mhtml.substring(0, mhtml.length - 7);
         });
+        this.loadDisqus();
         setTimeout(() => {
             GF.loader && GF.loader(false);
         }, 1000);
@@ -115,6 +128,7 @@ export default class Article extends Component {
                 <span></span>
                 {rel[1] ? <Link to={`/articles/${rel[1].id}`} className={isC(rel[1].def.title) ? "right no" : "right"}><span>{rel[1].def.title}</span><Right/></Link> : null}
             </div>
+            <div id="disqus_thread"></div>
         </div>
     }
 

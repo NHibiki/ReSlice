@@ -28,6 +28,10 @@ hr {
     box-shadow: 0 2px 10px lighten($articleColor, 30%);
 }
 
+#disqus_thread {
+    text-align: center;
+}
+
 .article {
 
     color:$articleColor;

@@ -66,6 +66,7 @@ yarn && sh ./autobuild.sh
 - [x] 搜索功能
 - [x] tags / categories 匹配
 - [x] 移动端适配
+- [x] 页面进度条
 - [x] disqus 评论支持
 - [ ] github 评论支持
 - [ ] 页面分享功能

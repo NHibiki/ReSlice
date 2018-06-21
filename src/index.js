@@ -33,7 +33,7 @@ class ReSlice extends Component {
             window.scrollTo(0, 0);
         } else {
             this.setState({loader: false});
-            NProgress.set(90); setTimeout(NProgress.done, 500);
+            NProgress.set(0.9); setTimeout(NProgress.done, 500);
         }
     }
 

@@ -117,6 +117,7 @@ hr {
         padding: 1em 2em;
         line-height: 1.3em;
         counter-reset: codeline;
+        -webkit-overflow-scrolling: touch;
 
         cbr:before {
             color: #888;

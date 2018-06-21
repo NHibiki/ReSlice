@@ -5,6 +5,10 @@
     position: fixed;
     right: 30px;
     bottom: 30px;
+    @include phoneMedia {
+        right: 20px;
+        bottom: 15px;
+    }
     padding: 0 0;
     margin: 0 0;
 

@@ -59,7 +59,7 @@ module.exports = {
 至此，部署已经完成。您只需执行。
 
 ```sh
-yarn && sh ./autobuild.sh
+yarn deploy
 ```
 
 即可在 `./ReSlice` 下生成 `build` 文件夹。里面就是一个完整的网站。

@@ -31,7 +31,11 @@ module.exports = {
     title: "你的博客标题",
     author: "作者姓名",
     url: "作者介绍链接",
-    disqus: "disqus 的短名(留空表示不添加 disqus 评论插件)",
+    disqus: "disqus 的短名 (留空表示不添加 disqus 评论插件)",
+    base: "https://yuuno.cc/ (你的站点路径, 最后的'/'需要保留)",
+    rss: "atom (feed 生成器, 可以为 atom 或者 rss, 默认为 atom)",
+    articleRss: true, //(是否为每一篇文章都生成单独的 rss)
+    feedContent: false, //(是否把文章内容写入站点 rss)
     avatar: "/favicon.png(作者头像路径)",
     license: "Creative Commons Attribution-NonCommercial 4.0 International License(你的版权解释)",
     menu: [
@@ -70,7 +74,7 @@ yarn && sh ./autobuild.sh
 - [x] disqus 评论支持
 - [ ] github 评论支持
 - [ ] 页面分享功能
-- [ ] 站点 RSS 生成
-- [ ] 文章 RSS 生成
+- [x] 站点 RSS 生成
+- [x] 文章 RSS 生成
 - [ ] 站点 SiteMap 生成
-- [ ] 插件支持
+- [x] 插件支持

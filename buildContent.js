@@ -1,6 +1,17 @@
 var fs = require('fs'),
-    os = require('os');
+    os = require('os'),
+    nunjucks = require('nunjucks'),
+    unified = require('unified'),
+    remark = require('remark-parse'),
+    rehtml = require('rehype-stringify'),
+    remark2rehype = require('remark-rehype'),
+    config = require("./src/config");
+var env = new nunjucks.Environment();
+    env.addFilter('uriencode', encodeURI);
+    env.addFilter('noControlChars', str => str.replace(/[\x00-\x1F\x7F]/g, ''));
+    env.addFilter('toUTC', str => (new Date(str)).toUTCString());
 var info = (v) => console.log('\x1B[32m\[ReSlice\]\x1B[39m', v);
+var info2 = (v) => console.log('\x1B[33m\[ReSlice\]\x1B[39m', v);
 var error = () => console.log('\x1B[31m\[ReSlice\]\x1B[39m Error:', v);
 var parseCol = (line) => line.trim().split(":").length === 1 ? [null, line.substr(line.indexOf("-") + 1).trim()] : [line.substr(0, line.indexOf(":")).trim() || null, line.substr(line.indexOf(":") + 1).trim() || null];
 var reflact = (to, from, key) => {
@@ -10,63 +21,132 @@ var reflact = (to, from, key) => {
         to[key][item].push(from.id);
     });
 }
+var parseText = p => ((p.value === undefined ? "" : p.value) + (p.children ? p.children.map(pc => parseText(pc)) : ""));
+var toUTC = s => s.toDate().toUTCString();
+var tryFn = (fn, ...args) => {try { return fn(args) } catch (error) {}}
 
+async function pipeHTML(marked) {
+    let res = await unified()
+            .use(remark)
+            .use(remark2rehype)
+            .use(rehtml)
+            .process(marked);
+    return res.contents;
+} 
 
-info(`Scanning Document Folder ...`);
-const Dir = `${__dirname}/public/documents`;
+var postData = {};
+var postHTML = {};
 
-const mdDir = fs.readdirSync(Dir).filter(f=>f.endsWith(".md"));
+async function run() {
 
-info(`${mdDir.length} Documents Was Found ...`);
-info(`Creating JSON Meta ...`);
+    info2(`Doing Cleaning Up ...`);
 
-var meta = {
-    createtime: new Date().getTime(),
-    createuser: os.userInfo().username,
-    device: `${os.type()} ${os.arch()} ${os.release()}`,
-    menu: {home: "/"},
-    article: {
-        tags: null,
-        categories: null,
-        count: 0,
-        articles: {},
-        sort: []
-    },
-};
-mdDir.forEach(md => {
-    let raw = fs.readFileSync(`${Dir}/${md}`).toString().trim();
-    if (raw.startsWith("---")) raw = raw.substr(raw.indexOf("\n")).trim();
-    let end = raw.indexOf("\n---");
-    if (end < 3) { error(`Meta of ${md} Not Found! Skip ...`); return; }
-    raw = raw.substr(0, end);
+    tryFn(fs.rmdirSync, `${__dirname}/public/feeds/`);
+    tryFn(fs.unlinkSync, `${__dirname}/public/atom.xml`);
+    tryFn(fs.unlinkSync, `${__dirname}/public/rss2.xml`);
+    tryFn(fs.mkdirSync, `${__dirname}/public/feeds/`);
 
-    let lastKey = null;
-    let data = {};
-    raw.split("\n").forEach(line => {
-        let [key, value] = parseCol(line);
-        if (key !== null && value !== null) { data[key] = [value]; lastKey = key; }
-        else if (key !== null) lastKey = key;
-        else if (value !== null && lastKey !== null) if (data[lastKey]) data[lastKey].push(value); else data[lastKey] = [value];
-    });
-    data.id = md.substr(0, md.length - 3);
-    data.date = data.date ? data.date[0] : 0;
+    info(`Scanning Document Folder ...`);
+    const Dir = `${__dirname}/public/documents`;
 
-    if (data.tags) reflact(meta.article, data, "tags");
-    if (data.categories) reflact(meta.article, data, "categories");
+    const mdDir = fs.readdirSync(Dir).filter(f=>f.endsWith(".md"));
 
-    meta.article.articles[data.id] = data;
-    meta.article.count += 1;
-    meta.article.sort.push(data.id);
+    info2(`${mdDir.length} Documents Was Found ...`);
+    info(`Creating JSON Meta ...`);
 
-    info(` - Scanning ${md} Success!`);
+    var meta = {
+        createtime: new Date().getTime(),
+        createuser: os.userInfo().username,
+        device: `${os.type()} ${os.arch()} ${os.release()}`,
+        menu: {home: "/"},
+        article: {
+            tags: null,
+            categories: null,
+            count: 0,
+            articles: {},
+            sort: []
+        },
+    };
+    for (md of mdDir) {
+        let raw = fs.readFileSync(`${Dir}/${md}`).toString().trim();
+        if (raw.startsWith("---")) raw = raw.substr(raw.indexOf("\n")).trim();
+        let end = raw.indexOf("\n---");
+        if (end < 3) { error(`Meta of ${md} Not Found! Skip ...`); return; }
+
+        let art = raw.substr(end + 4).trim();
+        raw = raw.substr(0, end);
+
+        let lastKey = null;
+        let data = {};
+        raw.split("\n").forEach(line => {
+            let [key, value] = parseCol(line);
+            if (key !== null && value !== null) { data[key] = [value]; lastKey = key; }
+            else if (key !== null) lastKey = key;
+            else if (value !== null && lastKey !== null) if (data[lastKey]) data[lastKey].push(value); else data[lastKey] = [value];
+        });
+        data.id = md.substr(0, md.length - 3);
+        data.date = (new Date(data.date ? data.date[0] : 0)).toISOString();
+
+        if (data.tags) reflact(meta.article, data, "tags");
+        if (data.categories) reflact(meta.article, data, "categories");
+
+        meta.article.articles[data.id] = data;
+        meta.article.count += 1;
+        meta.article.sort.push(data.id);
+
+        info(` - Scanning ${md} Success!`);
+
+        postHTML[data.id] = await pipeHTML(art);
+        postData[data.id] = parseText(unified().use(remark).parse(art)).trim().replace(/\s+/g, "");
+        
+        if (config.articleRss) {
+            let xml = nunjucks.compile(fs.readFileSync(`./templates/art.xml`, 'utf8'), env)
+                              .render({post: data, config, postData, postHTML, toUTC, contentSummaryLimit: 50})
+                              .split('\n')
+                              .map(line => line.trim())
+                              .filter(Boolean)
+                              .join("\n");
+            fs.writeFileSync(`${__dirname}/public/feeds/${data.id}.xml`, xml);
+        }
+
+        info2(` - Remark ${md} Success!`);
+
+    }
+
+    info(`Sorting All Articles ...`);
+
+    meta.article.sort.sort((a, b) => new Date(meta.article.articles[a].date) < new Date(meta.article.articles[b].date) ? 1 : -1);
+
+    info2(`Done With Meta Generation ...`);
+
+    info(`Generating With Site RSS ...`);
+
+    let select = (config.rss || "atom").trim();
+    if (!["rss2", "atom"].includes(select)) select = "atom";
+
+    info2(`Your Choice is [${select}]`);
+
+    meta.rss = `${select}.xml`;
+
+    let xmlPath = `./templates/${select}.xml`;
+    let xml = nunjucks.compile(fs.readFileSync(xmlPath, 'utf8'), env)
+                    .render({meta, config, postData, postHTML, toUTC, contentSummaryLimit: 50})
+                    .split('\n')
+                    .map(line => line.trim())
+                    .filter(Boolean)
+                    .join("\n");
+    fs.writeFileSync(`${__dirname}/public/${select}.xml`, xml);
+
+    info2(`Done With Site RSS Generation ...`);
+
+    info(`Save All Metas to content.json ...`);
+
+    fs.writeFileSync(`${__dirname}/public/content.json`, JSON.stringify(meta));
+
+    info2(`All Done!`);
+
+}
+
+run().then(() => {
+    process.exit(0);
 });
-
-info(`Sorting All Articles ...`);
-
-meta.article.sort.sort((a, b) => new Date(meta.article.articles[a].date) < new Date(meta.article.articles[b].date) ? 1 : -1);
-
-info(`Save to content.json ...`);
-
-fs.writeFileSync(`${__dirname}/public/content.json`, JSON.stringify(meta));
-
-info(`Done With Meta Generation ...`);

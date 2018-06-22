@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ config.title }}</title>
+    <link>{{ config.base | uriencode }}</link>
+    <atom:link href="{{ config.base + meta.rss | uriencode }}" rel="self" type="application/rss+xml"/>
+    {% if config.description %}<description>{{ config.description }}</description>{% endif %}
+    <pubDate>{{ meta.article.articles[meta.article.sort[0]].date | toUTC }}</pubDate>
+    <generator>https://github.com/NHibiki/ReSlice</generator>
+    {% for id in meta.article.sort %}
+    {% set post = meta.article.articles[id] %}
+    <item>
+      <title>{{ post.title }}</title>
+      <link>{{ (config.base + 'articles/' + id) | uriencode }}</link>
+      <guid>{{ id | uriencode }}</guid>
+      <pubDate>{{ post.date | toUTC }}</pubDate>
+      <description>
+      {% if post.description %}
+        {{ post.description }}
+      {% elif post.intro %}
+        {{ post.intro }}
+      {% elif post.excerpt %}
+        {{ post.excerpt }}
+      {% elif postData and postData[id] %}
+        {% set short_content = postData[id].substring(0, contentSummaryLimit) %}
+        {{ short_content }}
+      {% endif %}
+      </description>
+      {% if config.feedContent and postHTML and postHTML[id] %}
+      <content:encoded><![CDATA[{{ postHTML[id] | noControlChars | safe }}]]></content:encoded>
+      {% endif %}
+      {% if config.disqus %}<comments>{{ (config.base + 'articles/' + id) | uriencode }}#disqus_thread</comments>{% endif %}
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

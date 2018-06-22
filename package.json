@@ -6,6 +6,7 @@
     "highlight.js": "^9.12.0",
     "node-sass": "^4.8.3",
     "nprogress": "^0.2.0",
+    "nunjucks": "^3.1.3",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-highlight": "^0.12.0",
@@ -14,9 +15,14 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "sass-loader": "^6.0.7"
+    "rehype-stringify": "^3.0.0",
+    "remark-parse": "^5.0.0",
+    "remark-rehype": "^3.0.0",
+    "sass-loader": "^6.0.7",
+    "unified": "^7.0.0"
   },
   "scripts": {
+    "deploy": "sh ./autobuild.sh",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

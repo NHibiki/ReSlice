@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ config.title }}</title>
+  {% if config.avatar %}<icon>{{ config.base + config.avatar }}</icon>{% endif %}
+  {% if config.subtitle %}<subtitle>{{ config.subtitle }}</subtitle>{% endif %}
+  <link href="{{ config.base + meta.rss | uriencode }}" rel="self"/>
+  <link href="{{ config.base | uriencode }}"/>
+  <updated>{{ meta.article.articles[meta.article.sort[0]].date }}</updated>
+  <id>{{ config.base }}</id>
+  {% if config.author %}
+  <author>
+    <name>{{ config.author }}</name>
+    {% if config.email %}<email>{{ config.email }}</email>{% endif %}
+  </author>
+  {% endif %}
+  <generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+  {% for id in meta.article.sort %}
+  {% set post = meta.article.articles[id] %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ (config.base + 'articles/' + id) | uriencode }}"/>
+    <id>{{ id | uriencode }}</id>
+    <published>{{ post.date }}</published>
+    <updated>{{ post.date }}</updated>
+    {% if config.feedContent and postHTML and postHTML[id] %}
+    <content type="html"><![CDATA[{{ postHTML[id] | noControlChars | safe }}]]></content>
+    {% endif %}
+    <summary type="html">
+    {% if post.description %}
+      {{ post.description }}
+    {% elif post.intro %}
+      {{ post.intro }}
+    {% elif post.excerpt %}
+      {{ post.excerpt }}
+    {% elif postData and postData[id] %}
+      {% set short_content = postData[id].substring(0, contentSummaryLimit) %}
+      {{ short_content }}
+    {% endif %}
+    </summary>
+    {% for category in post.categories %}
+      <category term="{{ category }}" scheme="{{ (config.base + 'categories/' + category) | uriencode }}"/>
+    {% endfor %}
+    {% for tag in post.tags %}
+      <category term="{{ tag }}" scheme="{{ (config.base + 'tags/' + tag) | uriencode }}"/>
+    {% endfor %}
+  </entry>
+  {% endfor %}
+</feed>

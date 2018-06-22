@@ -1,7 +1,11 @@
 # user data
 public/content.json
+public/rss2.xml
+public/atom.xml
 public/documents/*
 !public/documents/.ignore
+public/feeds/*
+!public/feeds/.ignore
 
 # misc
 .DS_Store

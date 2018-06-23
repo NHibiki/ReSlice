@@ -99,8 +99,8 @@ export default class Article extends Component {
         document.querySelectorAll('pre code').forEach(block => {
             Highlight.highlightBlock(block);
             var mhtml = block.innerHTML;
-            mhtml = "<cbr>" + mhtml.split("\n").join("</cbr>\n<cbr>");
-            block.innerHTML = mhtml.substring(0, mhtml.length - 7);
+            mhtml = "<cbr>" + mhtml.trim().split("\n").join("</cbr>\n<cbr>") + "</cbr>";
+            block.innerHTML = mhtml;
         });
         this.loadDisqus();
         setTimeout(() => {

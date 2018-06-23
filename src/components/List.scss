@@ -35,7 +35,7 @@
 
     &.tags > li > a {
 
-        $aColor: rgb(red($titleColor) / 1.2, green($titleColor) * 2, blue($titleColor) / 1.2);
+        $aColor: rgb(red($titleColor) / 1.2, green($titleColor) * 1.8, blue($titleColor) / 1.2);
         color: $aColor;
 
         &:hover {

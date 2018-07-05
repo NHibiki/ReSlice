@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import Left from 'react-icons/lib/fa/angle-left';
 import Right from 'react-icons/lib/fa/angle-right';
 
-import {isC} from '../lib/Api';
-
 import './PageNavigator.scss';
 
 export default class PageNavigator extends Component {

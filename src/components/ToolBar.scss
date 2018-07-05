@@ -28,7 +28,7 @@
         cursor: pointer;
         transition: .2s linear;
 
-        &:hover:not(.disabled) {
+        &:hover:not(.disabled):not(.gap) {
             color: $footColor;
             background-color: #DDD;
         }
@@ -36,6 +36,11 @@
         &.disabled {
             opacity: .6;
             cursor: not-allowed;
+        }
+
+        &.gap {
+            height: 18px;
+            background: none;
         }
 
     }

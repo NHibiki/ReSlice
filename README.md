@@ -73,7 +73,7 @@ yarn deploy
 - [x] 页面进度条
 - [x] disqus 评论支持
 - [ ] github 评论支持
-- [ ] 页面分享功能
+- [x] 页面分享功能
 - [x] 站点 RSS 生成
 - [x] 文章 RSS 生成
 - [ ] 站点 SiteMap 生成

@@ -87,7 +87,7 @@ async function run() {
             else if (value !== null && lastKey !== null) if (data[lastKey]) data[lastKey].push(value); else data[lastKey] = [value];
         });
         data.id = md.substr(0, md.length - 3);
-        data.date = (new Date(data.date ? data.date[0] : 0)).toISOString();
+        data.date = data.date ? data.date[0] : 0;
 
         if (data.tags) reflact(meta.article, data, "tags");
         if (data.categories) reflact(meta.article, data, "categories");

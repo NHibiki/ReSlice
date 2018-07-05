@@ -5,7 +5,7 @@
   {% if config.subtitle %}<subtitle>{{ config.subtitle }}</subtitle>{% endif %}
   <link href="{{ config.base + 'feeds/' + post.id + '.rss' | uriencode }}" rel="self"/>
   <link href="{{ config.base + 'articles/' + post.id | uriencode }}"/>
-  <updated>{{ post.date }}</updated>
+  <updated>{{ post.date | toISO }}</updated>
   <id>{{ post.id | uriencode }}</id>
   {% if config.author %}
   <author>
@@ -18,8 +18,8 @@
     <title>{{ post.title }}</title>
     <link href="{{ (config.base + 'articles/' + post.id) | uriencode }}"/>
     <id>{{ post.id | uriencode }}</id>
-    <published>{{ post.date }}</published>
-    <updated>{{ post.date }}</updated>
+    <published>{{ post.date | toISO }}</published>
+    <updated>{{ post.date | toISO }}</updated>
     {% if postHTML and postHTML[post.id] %}
     <content type="html"><![CDATA[{{ postHTML[post.id] | noControlChars | safe }}]]></content>
     {% endif %}

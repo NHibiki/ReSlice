@@ -38,7 +38,7 @@ export default class ToolBar extends Component {
     shareClicked(item="telegram") {
         if (item in SURL) {
             let urlConf = SURL[item];
-            let url = `${urlConf[0]}?${urlConf[1]}=${window.location.href}&${urlConf[2]}=${window.document.title}`;
+            let url = `${urlConf[0]}?${urlConf[1]}=${window.location.href}&${urlConf[2]}=${encodeURI(window.document.title)}`;
             window.open(url, "_blank");
         }
     }

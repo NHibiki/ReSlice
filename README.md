@@ -36,6 +36,7 @@ module.exports = {
     rss: "atom (feed 生成器, 可以为 atom 或者 rss, 默认为 atom)",
     articleRss: true, //(是否为每一篇文章都生成单独的 rss)
     feedContent: false, //(是否把文章内容写入站点 rss)
+    siteMap: true, //(是否生成站点地图)
     avatar: "/favicon.png(作者头像路径)",
     license: "Creative Commons Attribution-NonCommercial 4.0 International License(你的版权解释)",
     menu: [
@@ -76,5 +77,5 @@ yarn deploy
 - [x] 页面分享功能
 - [x] 站点 RSS 生成
 - [x] 文章 RSS 生成
-- [ ] 站点 SiteMap 生成
+- [x] 站点 SiteMap 生成
 - [x] 插件支持

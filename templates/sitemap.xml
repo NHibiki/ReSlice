@@ -1,0 +1,36 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    {% set base = config.base %}
+    {% set articles = meta.article.articles %}
+    <url>
+        <loc>{{ base }}</loc>
+        <lastmod>{{ current | toISO }}</lastmod>
+        <priority>1.00</priority>
+    </url>
+    {% for id in meta.article.sort %}
+    <url>
+        <loc>{{ base }}articles/{{ id }}</loc>
+        <lastmod>{{ articles[id].date | toISO }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    {% endfor %}
+    {% for cate in categories %}
+    <url>
+        <loc>{{ base }}categories/{{ cate }}</loc>
+        <lastmod>{{ current | toISO }}</lastmod>
+        <priority>0.60</priority>
+    </url>
+    {% endfor %}
+    {% for tag in tags %}
+    <url>
+        <loc>{{ base }}tags/{{ tag }}</loc>
+        <lastmod>{{ current | toISO }}</lastmod>
+        <priority>0.60</priority>
+    </url>
+    {% endfor %}
+</urlset>

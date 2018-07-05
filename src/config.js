@@ -7,6 +7,7 @@ module.exports = {
     rss: "atom",
     articleRss: true,
     feedContent: false,
+    siteMap: true,
     avatar: "/favicon.png",
     license: "Creative Commons Attribution-NonCommercial 4.0 International License",
     menu: [

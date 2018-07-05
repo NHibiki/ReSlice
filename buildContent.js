@@ -10,6 +10,7 @@ var env = new nunjucks.Environment();
     env.addFilter('uriencode', encodeURI);
     env.addFilter('noControlChars', str => str.replace(/[\x00-\x1F\x7F]/g, ''));
     env.addFilter('toUTC', str => (new Date(str)).toUTCString());
+    env.addFilter('toISO', str => (new Date(str)).toISOString());
 var info = (v) => console.log('\x1B[32m\[ReSlice\]\x1B[39m', v);
 var info2 = (v) => console.log('\x1B[33m\[ReSlice\]\x1B[39m', v);
 var error = () => console.log('\x1B[31m\[ReSlice\]\x1B[39m Error:', v);
@@ -23,7 +24,7 @@ var reflact = (to, from, key) => {
 }
 var parseText = p => ((p.value === undefined ? "" : p.value) + (p.children ? p.children.map(pc => parseText(pc)) : ""));
 var toUTC = s => s.toDate().toUTCString();
-var tryFn = (fn, ...args) => {try { return fn(args) } catch (error) {}}
+var tryFn = (fn, ...args) => {try { return fn(...args) } catch (error) {}}
 
 async function pipeHTML(marked) {
     let res = await unified()
@@ -44,6 +45,7 @@ async function run() {
     tryFn(fs.rmdirSync, `${__dirname}/public/feeds/`);
     tryFn(fs.unlinkSync, `${__dirname}/public/atom.xml`);
     tryFn(fs.unlinkSync, `${__dirname}/public/rss2.xml`);
+    tryFn(fs.unlinkSync, `${__dirname}/public/sitemap.xml`);
     tryFn(fs.mkdirSync, `${__dirname}/public/feeds/`);
 
     info(`Scanning Document Folder ...`);
@@ -138,6 +140,22 @@ async function run() {
     fs.writeFileSync(`${__dirname}/public/${select}.xml`, xml);
 
     info2(`Done With Site RSS Generation ...`);
+
+    if (config.siteMap) {
+
+        info(`Start Generating SiteMap ...`);
+
+        meta.siteMap = "sitemap.xml";
+        let siteXmlPath = `./templates/sitemap.xml`;
+        let siteXml = nunjucks.compile(fs.readFileSync(siteXmlPath, 'utf8'), env)
+                            .render({meta, config, current: (new Date()).getTime(), categories: Object.keys(meta.article.categories), tags: Object.keys(meta.article.tags)})
+                            .split('\n')
+                            .map(line => line.trim())
+                            .filter(Boolean)
+                            .join("\n");
+        fs.writeFileSync(`${__dirname}/public/sitemap.xml`, siteXml);
+
+    }
 
     info(`Save All Metas to content.json ...`);
 

@@ -1,0 +1,78 @@
+@import '../global';
+
+.pageNavigator {
+
+    $btnSize: 50px;
+    $pivot: 2.5;
+
+    a {
+        position: fixed;
+        display: none;
+        @include pcLargeMedia {
+            display: block;
+        }
+        font-size: $btnSize;
+        line-height: $btnSize / 2;
+        text-align: center;
+        border-radius: $btnSize + 4px;
+        width: $btnSize + 2px;
+        height: $btnSize + 4px;
+        top: calc(50% - #{$btnSize} / 2);
+        color: darken($bgColor, 10%);
+        &.no {
+            transition: 0.2s linear;
+            &:hover {
+                background: lighten($titleColor, 60%);
+                color: white;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    a.left {
+        left: calc(50% - 390px - #{$btnSize * $pivot});
+        padding-right: 2px;
+        &:hover:not(.no) {
+            animation: shrinkleft .4s linear forwards;
+        }
+    }
+
+    a.right {
+        right: calc(50% - 390px - #{$btnSize * $pivot});
+        padding-left: 2px;
+        &:hover:not(.no) {
+            animation: shrinkright .4s linear forwards;
+        }
+    }
+
+    @keyframes shrinkleft {
+        25% {
+            left: calc(50% - 390px - #{$btnSize * $pivot + $btnSize * 0.2});
+        }
+        50% {
+            background: rgba(255, 255, 255, 0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            left: calc(50% - 390px - #{$btnSize * $pivot});
+        }
+        100% {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            background: lighten($titleColor, 40%);
+        }
+    }
+
+    @keyframes shrinkright {
+        25% {
+            right: calc(50% - 390px - #{$btnSize * $pivot + $btnSize * 0.2});
+        }
+        50% {
+            background: rgba(255, 255, 255, 0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            right: calc(50% - 390px - #{$btnSize * $pivot});
+        }
+        100% {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            background: lighten($titleColor, 40%);
+        }
+    }
+
+}

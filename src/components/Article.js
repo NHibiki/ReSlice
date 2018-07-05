@@ -7,6 +7,7 @@ import Right from 'react-icons/lib/fa/angle-right';
 import Left  from 'react-icons/lib/fa/angle-left';
 
 import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF, Settings } from '../lib/Api';
+import PageNavigator from './PageNavigator';
 import List from './List';
 
 import './Article.scss';
@@ -123,6 +124,7 @@ export default class Article extends Component {
             <ReactMarkdown escapeHtml={false} source={this.state.content} className="article" />
             <p className="composeTime">{date}</p>
             {/* <hr /> */}
+            <PageNavigator relation={rel} />
             <div className="pagenav">
                 {rel[0] ? <Link to={`/articles/${rel[0].id}`} className={isC(rel[0].def.title) ? "left no" : "left"}><Left/><span>{rel[0].def.title}</span></Link> : null}
                 <span></span>

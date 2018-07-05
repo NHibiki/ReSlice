@@ -61,3 +61,9 @@ $ballSize: 16px;
         @content;
     };
 }
+
+@mixin pcLargeMedia {
+    @media only screen and (min-width: 1080px) {
+        @content;
+    };
+}

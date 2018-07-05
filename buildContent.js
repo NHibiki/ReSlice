@@ -45,6 +45,7 @@ async function run() {
     tryFn(fs.rmdirSync, `${__dirname}/public/feeds/`);
     tryFn(fs.unlinkSync, `${__dirname}/public/atom.xml`);
     tryFn(fs.unlinkSync, `${__dirname}/public/rss2.xml`);
+    tryFn(fs.unlinkSync, `${__dirname}/public/sitemap.txt`);
     tryFn(fs.unlinkSync, `${__dirname}/public/sitemap.xml`);
     tryFn(fs.mkdirSync, `${__dirname}/public/feeds/`);
 
@@ -154,6 +155,17 @@ async function run() {
                             .filter(Boolean)
                             .join("\n");
         fs.writeFileSync(`${__dirname}/public/sitemap.xml`, siteXml);
+
+        info2(`Create SiteMap File 'sitemap.xml' ...`);
+
+        meta.siteMapTxt = "sitemap.txt";
+        linksList = [];
+        for (let id of meta.article.sort) linksList.push(`${config.base}articles/${id}`);
+        for (let id in meta.article.categories) linksList.push(`${config.base}categories/${id}`);
+        for (let id in meta.article.tags) linksList.push(`${config.base}tags/${id}`);
+        fs.writeFileSync(`${__dirname}/public/sitemap.txt`, linksList.join("\n"));
+
+        info2(`Create SiteMap File 'sitemap.txt' ...`);
 
     }
 

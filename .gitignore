@@ -1,6 +1,7 @@
 # user data
 public/content.json
 public/sitemap.xml
+public/sitemap.txt
 public/rss2.xml
 public/atom.xml
 public/documents/*

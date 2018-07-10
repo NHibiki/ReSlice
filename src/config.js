@@ -8,7 +8,7 @@ module.exports = {
     articleRss: true,
     feedContent: false,
     siteMap: true,
-    avatar: "/favicon.png",
+    avatar: "/favicon.jpg",
     license: "Creative Commons Attribution-NonCommercial 4.0 International License",
     menu: [
         ["首页", "/"],

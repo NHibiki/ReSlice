@@ -6,7 +6,7 @@ import CopyRight from 'react-icons/lib/fa/copyright';
 
 function extractDate(date) {
     let d = new Date(date);
-    return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
 }
 
 export class Header extends Component {

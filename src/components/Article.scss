@@ -94,10 +94,11 @@ hr {
         -webkit-margin-end: 0;
         margin: 2em 0;
         padding: 10px 30px;
-        border-radius: 5px;
+        // border-radius: 5px;
 
-        color: $codeColor;
-        background-color: $codeBack;
+        // color: $codeColor;
+        // background-color: $codeBack;
+        color: $codeBack;
 
         p {
             color: inherit;
@@ -105,7 +106,8 @@ hr {
         }
 
         a:hover {
-            color: lighten($codeColor, 5%);
+            // color: lighten($codeColor, 5%);
+            color: lighten($codeBack, 5%);
         }
 
     }

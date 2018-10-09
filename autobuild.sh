@@ -1,5 +1,13 @@
 #!/bin/sh
 
+if [ -f "./_config.js" ]; then
+  cp -f ./_config.js ./src/config.js
+fi
+
+if [ -f "./_plugin.scss" ]; then
+  cp -f ./_plugin.scss ./src/plugin.scss
+fi
+
 rm -f ./public/content.json
 node ./buildContent.js
 

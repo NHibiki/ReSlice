@@ -47,6 +47,10 @@ hr {
         display: block;
     }
 
+    img, video, canvas {
+        max-height: 320px;
+    }
+
     a {
         text-decoration: none;
         color: lighten($articleColor, 25%);

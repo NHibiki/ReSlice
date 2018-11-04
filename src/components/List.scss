@@ -6,6 +6,11 @@
     padding: 0 0;
     margin-top: 0em;
 
+    @include phoneMediaSearch {
+        font-size: 1em;
+        margin-bottom: .2em;
+    }
+
     li {
         display: inline;
 
@@ -15,7 +20,7 @@
             font-weight: bold;
             margin-right: 1em;
             transition: .2s linear;
-            text-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+            text-shadow: 0 5px 8px rgba(0, 0, 0, .1);
 
             svg {
                 text-shadow: 0 5px 8px rgba(0, 0, 0, .15);
@@ -23,7 +28,7 @@
 
             &:hover {
                 color: lighten($titleColor, 5%);
-                text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+                text-shadow: 0 2px 4px rgba(0, 0, 0, .2);
             }
         }
 
@@ -35,11 +40,21 @@
 
     &.tags > li > a {
 
-        $aColor: rgb(red($titleColor) / 1.2, green($titleColor) * 1.8, blue($titleColor) / 1.2);
-        color: $aColor;
+        // $aColor: rgb(red($titleColor) / 1.2, green($titleColor) * 1.8, blue($titleColor) / 1.2);
+        color: $tagColor;
 
         &:hover {
-            color: darken($aColor, 15%);
+            color: darken($tagColor, 15%);
+        }
+
+    }
+
+    &.categories > li > a {
+
+        color: $catiColor;
+
+        &:hover {
+            color: darken($catiColor, 15%);
         }
 
     }

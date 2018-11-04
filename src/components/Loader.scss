@@ -11,6 +11,7 @@
     transition: .2s linear;
     user-select: none;
     opacity: .8;
+    z-index: 10;
 
     &.hide {
         opacity: 0;

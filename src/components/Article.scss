@@ -61,6 +61,7 @@ hr {
         color: $linkColor;
         transition: .2s linear;
         text-shadow: 0 2px 5px rgba(red($linkColor), green($linkColor), blue($linkColor), .05);
+        font-weight: 400;
 
         &:hover {
             color: darken($articleColor, 5%);
@@ -84,6 +85,8 @@ hr {
         line-height: 2;
         vertical-align: center;
         font-size: $fontSize;
+        font-weight: 300;
+        font-family: sans-serif;
         @include phoneMediaSearch {
             font-size: 14px;
         }

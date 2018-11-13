@@ -63,6 +63,10 @@ hr {
         transition: .2s linear;
         text-shadow: 0 2px 5px rgba(red($linkColor), green($linkColor), blue($linkColor), .05);
         font-weight: 400;
+        
+        img {
+            display: inline-block;
+        }
 
         &:hover {
             color: darken($articleColor, 5%);
@@ -79,6 +83,35 @@ hr {
 
     h1, h2, h3 {
         margin-top: 2em;
+    }
+    
+    li, tr {
+        line-height: 2;
+    }
+    
+    table {
+        
+        display: block;
+        overflow: auto;
+        border-radius: 8px;
+        
+        tr {
+            text-align: center;
+            white-space: pre;
+            &:nth-child(2n) {
+                background: #CCC;
+            }
+        }
+
+        td, th {
+            padding: 0 18px;
+        }
+
+        thead tr {
+            background: #888;
+            color: #DDD;
+        }
+        
     }
 
     p {

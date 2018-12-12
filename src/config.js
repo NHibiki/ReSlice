@@ -12,8 +12,8 @@ module.exports = {
     license: "Creative Commons Attribution-NonCommercial 4.0 International License",
     menu: [
         ["首页", "/"],
-        ["主页", "https://i.yuuno.cc"],
-        // ["简历", "https://yuuno.io"],
+        ["主页", "https://yuuno.cc/i/"],
+        ["简历", "https://yuuno.cc/portfolio/"],
         ["RSS", "https://yuuno.cc/atom.xml"],
         ["友链", "/articles/links"]
     ]

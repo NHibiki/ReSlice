@@ -8,6 +8,10 @@ if [ -f "./_plugin.scss" ]; then
   cp -f ./_plugin.scss ./src/plugin.scss
 fi
 
+if [ -f "./_plugin.js" ]; then
+  cp -f ./_plugin.js ./src/plugin.js
+fi
+
 rm -f ./public/content.json
 node ./buildContent.js
 

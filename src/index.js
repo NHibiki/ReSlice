@@ -13,6 +13,7 @@ import Loader from './components/Loader';
 import NotFoundPage from './components/NotFoundPage';
 
 import { getContent, Settings, GF } from './lib/Api';
+import Plugin from './plugin';
 
 import './index.scss';
 
@@ -40,6 +41,7 @@ class ReSlice extends Component {
     componentDidMount() {
         getContent().then(content => {
             this.setState({ content });
+            this.doLoader(false);
         }).catch(error => {
             console.log("Time Out!");
         });
@@ -56,6 +58,9 @@ class ReSlice extends Component {
                     <Route exact path="/articles/:id" component={Article}/>
                     <Route exact path="/tags/:id" component={Cart}/>
                     <Route exact path="/categories/:id" component={Cart}/>
+                    {Plugin.filter(p => p && p.entrypoint && p.component).map(p => {
+                        return (<Route exact key={p.entrypoint} path={p.entrypoint} component={p.component} />);
+                    })}
                     <Route exact path="*" component={NotFoundPage} />
                 </Switch>
                 <Footer settings={Settings || {}} content={this.state.content || {}}/>

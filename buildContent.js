@@ -13,7 +13,7 @@ var env = new nunjucks.Environment();
     env.addFilter('toISO', str => (new Date(str)).toISOString());
 var info = (v) => console.log('\x1B[32m\[ReSlice\]\x1B[39m', v);
 var info2 = (v) => console.log('\x1B[33m\[ReSlice\]\x1B[39m', v);
-var error = () => console.log('\x1B[31m\[ReSlice\]\x1B[39m Error:', v);
+var error = (v) => console.log('\x1B[31m\[ReSlice\]\x1B[39m Error:', v);
 var parseCol = (line) => line.trim().split(":").length === 1 ? [null, line.substr(line.indexOf("-") + 1).trim()] : [line.substr(0, line.indexOf(":")).trim() || null, line.substr(line.indexOf(":") + 1).trim() || null];
 var reflact = (to, from, key) => {
     if (!to[key]) to[key] = new Object();

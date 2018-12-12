@@ -18,6 +18,6 @@ node ./buildContent.js
 cp -f ./webpack.config.dev.js ./node_modules/react-scripts/config/webpack.config.dev.js
 cp -f ./webpack.config.prod.js ./node_modules/react-scripts/config/webpack.config.prod.js
 
-yarn build
+npm run build
 
 echo "Build Complete!"

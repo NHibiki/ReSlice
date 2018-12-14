@@ -25,6 +25,10 @@ class ReSlice extends Component {
             content: null,
             loader: true,
         };
+        NProgress.configure({ parent: '#root', showSpinner: false });
+        NProgress.start();
+        GF.loader = this.doLoader.bind(this);
+        GF.loaded = function () { return !this.state.loader; }.bind(this);
     }
 
     doLoader(show=true) {
@@ -44,9 +48,6 @@ class ReSlice extends Component {
         }).catch(error => {
             console.log("Time Out!");
         });
-        NProgress.configure({ parent: '#root', showSpinner: false });
-        NProgress.start();
-        GF.loader = this.doLoader.bind(this);
     }
 
     render () { return (
@@ -58,7 +59,7 @@ class ReSlice extends Component {
                     <Route exact path="/tags/:id" component={Cart}/>
                     <Route exact path="/categories/:id" component={Cart}/>
                     {Plugin.filter(p => p && p.entrypoint && p.component).map(p => {
-                        return (<Route exact key={p.entrypoint} path={p.entrypoint} component={(<PluginWrapper>{p.component}</PluginWrapper>)} />);
+                        return (<Route exact key={p.entrypoint} path={p.entrypoint} component={_ => <PluginWrapper component={p.component} />} />);
                     })}
                     <Route exact path="*" component={NotFoundPage} />
                 </Switch>
@@ -73,7 +74,7 @@ class ReSlice extends Component {
 class PluginWrapper extends Component {
 
     componentDidMount() {
-        GF.loader(false);
+        if (!GF.loaded()) setTimeout(_ => GF.loader(false), 300);
     }
 
     componentDidCatch() {
@@ -81,7 +82,7 @@ class PluginWrapper extends Component {
     }
 
     render() {
-        return this.props.children;
+        return React.createElement(this.props.component);
     }
 
 }

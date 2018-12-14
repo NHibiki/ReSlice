@@ -120,7 +120,7 @@ hr {
         vertical-align: center;
         font-size: $fontSize;
         font-weight: 300;
-        font-family: sans-serif;
+        /* font-family: sans-serif; */
         @include phoneMediaSearch {
             font-size: 14px;
         }

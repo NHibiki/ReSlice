@@ -41,7 +41,6 @@ class ReSlice extends Component {
     componentDidMount() {
         getContent().then(content => {
             this.setState({ content });
-            this.doLoader(false);
         }).catch(error => {
             console.log("Time Out!");
         });
@@ -59,7 +58,7 @@ class ReSlice extends Component {
                     <Route exact path="/tags/:id" component={Cart}/>
                     <Route exact path="/categories/:id" component={Cart}/>
                     {Plugin.filter(p => p && p.entrypoint && p.component).map(p => {
-                        return (<Route exact key={p.entrypoint} path={p.entrypoint} component={p.component} />);
+                        return (<Route exact key={p.entrypoint} path={p.entrypoint} component={(<PluginWrapper>{p.component}</PluginWrapper>)} />);
                     })}
                     <Route exact path="*" component={NotFoundPage} />
                 </Switch>
@@ -71,6 +70,21 @@ class ReSlice extends Component {
     )};
 }
 
+class PluginWrapper extends Component {
+
+    componentDidMount() {
+        GF.loader(false);
+    }
+
+    componentDidCatch() {
+        this.props.history.push(`/error`);
+    }
+
+    render() {
+        return this.props.children;
+    }
+
+}
 
 ReactDOM.render(
     <ReSlice />,

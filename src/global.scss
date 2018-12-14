@@ -20,12 +20,29 @@ $footColor: #9AA;
 
 $ballSize: 16px;
 
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('/fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('/fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('/fonts/Ubuntu/Ubuntu-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
 @mixin globalFonts {
-    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: "Ubuntu", "lucida grande", "lucida sans unicode", lucida, helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 @mixin globalFontsR {
-    font-family: helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: "Ubuntu", helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 @mixin artFonts {
@@ -54,13 +71,13 @@ $ballSize: 16px;
 }
 
 @mixin phoneMedia {
-    @media only screen and (max-width: 410px) {
+    @media only screen and (max-width: 500px) {
         @content;
     };
 }
 
 @mixin pcMedia {
-    @media only screen and (min-width: 410px) {
+    @media only screen and (min-width: 500px) {
         @content;
     };
 }

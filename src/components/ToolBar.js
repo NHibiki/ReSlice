@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { scrollToTop, searchFor, isC } from '../lib/Api';
+import { scrollToTop, searchFor, isC, showTime } from '../lib/Api';
 
 import Twitter from 'react-icons/lib/fa/twitter';
 import Facebook from 'react-icons/lib/fa/facebook';
@@ -134,7 +134,7 @@ class SearchTag extends Component {
 
         return <Link to={`/articles/${art.id}`} className="searchTag" onClick={this.props.hide}>
             <h4 className={isC(art.title) ? "no" : null}>{art.title}</h4>
-            <span>{art.date}</span>
+            <span>{showTime(art.date)}</span>
             <small>{art.id}</small>
         </Link>
 

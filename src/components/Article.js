@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
 import Highlight from '../../node_modules/highlight.js/lib/index';
 
 import Right from 'react-icons/lib/fa/angle-right';
 import Left  from 'react-icons/lib/fa/angle-left';
 
+import marked from 'marked';
 import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF, Settings, showTime } from '../lib/Api';
 import PageNavigator from './PageNavigator';
 import List from './List';
 
 import './Article.scss';
+
+const customizedHeading = / \{#[\S]+\}/;
+const mdRenderer = new marked.Renderer();                                                                                                                                 
+      mdRenderer.heading = function (text, level) {                                                                                                                       
+          let res = customizedHeading.exec(text);                                                                                                                         
+          if (!res || !res[0]) return `<h${level} id='${text.trim().replace(/[\s]+/g, "-").toLocaleLowerCase()}'>${text}</h${level}>`;                                                        
+          return `<h${level} id='${res[0].substr(3, res[0].length-4)}'>${text.replace(res[0], "")}</h${level}>`;                                                          
+      };
 
 export default class Article extends Component {
 
@@ -114,14 +122,15 @@ export default class Article extends Component {
 
         const {title, tags, categories, date} = this.state.def || EMPTY;
         const rel = this.state.relation;
+        const __html = marked(this.state.content || "", { sanitize: false, renderer: mdRenderer });
 
         return <div>
             <div className="titlebar">
-                <h1>{title}</h1>
+                <h1 id="article-title">{title}</h1>
                 <List type="categories" data={categories} />
                 <List type="tags" data={tags} />
             </div>
-            <ReactMarkdown escapeHtml={false} source={this.state.content} className="article" />
+            <div dangerouslySetInnerHTML={{__html}} className="article" />
             <p className="composeTime">{showTime(date)}</p>
             {/* <hr /> */}
             <PageNavigator relation={rel} />

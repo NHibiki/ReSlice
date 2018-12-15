@@ -17,15 +17,17 @@ export class Header extends Component {
         const title  = this.props.title  || "ReSlice";
         const menu   = this.props.menu   || [];
 
+        const prefix = window.location.protocol + "//" + window.location.host;
+
         return <div className="header">
-            <a href="/">
+            <Link to="/">
                 <img src={avatar} alt={title} />
                 <span>{title}</span>
-            </a>
+            </Link>
             <ul className="navbar">
-                { menu.map((v,i) => !v[1].trim().startsWith("/") ? 
-                    <li key={i}><a href={v[1]}>{v[0]}</a></li> :
-                    <li key={i}><Link to={v[1]}>{v[0]}</Link></li>) }
+                { menu.map((v,i) => v[1].trim().startsWith("/") || v[1].trim().startsWith(prefix) ? 
+                    <li key={i}><Link to={v[1].replace(prefix, "") || "/"}>{v[0]}</Link></li> :
+                    <li key={i}><a href={v[1]}>{v[0]}</a></li>) }
             </ul>
         </div>
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getContent, switchTitle, isC, GF } from '../lib/Api';
+import { getContent, switchTitle, isC, GF, showTime } from '../lib/Api';
 
 import './Cart.scss';
 
@@ -51,7 +51,7 @@ export default class Cart extends Component {
             <h2>{trans[type]}: {id}</h2>
             <ul className="cart">
                 {content.map((v, i) => 
-                    <li key={i}><Link to={`/articles/${v}`} className={isC(articles[v].title) ? "left-half" : null}>{articles[v].title}</Link> - <small>{articles[v].date}</small></li>
+                    <li key={i}><Link to={`/articles/${v}`} className={isC(articles[v].title) ? "left-half" : null}>{articles[v].title}</Link> - <small>{showTime(articles[v].date)}</small></li>
                 )}
             </ul>
         </div>

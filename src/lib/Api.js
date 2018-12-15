@@ -80,3 +80,13 @@ export function searchFor(text) {
         });
     });
 }
+
+export function timePad(i) {
+    if (i < 10) return `0${i}`;
+    else return `${i}`;
+}
+
+export function showTime(time) {
+    let t = new Date(time);
+    return `${t.getFullYear()}-${timePad(t.getMonth()+1)}-${timePad(t.getDate())} ${timePad(t.getHours())}:${timePad(t.getMinutes())}:${timePad(t.getSeconds())}`;
+}

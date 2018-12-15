@@ -6,7 +6,7 @@ import Highlight from '../../node_modules/highlight.js/lib/index';
 import Right from 'react-icons/lib/fa/angle-right';
 import Left  from 'react-icons/lib/fa/angle-left';
 
-import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF, Settings } from '../lib/Api';
+import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF, Settings, showTime } from '../lib/Api';
 import PageNavigator from './PageNavigator';
 import List from './List';
 
@@ -122,13 +122,13 @@ export default class Article extends Component {
                 <List type="tags" data={tags} />
             </div>
             <ReactMarkdown escapeHtml={false} source={this.state.content} className="article" />
-            <p className="composeTime">{date}</p>
+            <p className="composeTime">{showTime(date)}</p>
             {/* <hr /> */}
             <PageNavigator relation={rel} />
             <div className="pagenav">
-                {rel[0] ? <Link to={`/articles/${rel[0].id}`} className={isC(rel[0].def.title) ? "left no" : "left"}><Left/><span>{rel[0].def.title}</span></Link> : null}
+                {rel[0] ? <Link to={`/articles/${rel[0].id}`} className={isC(rel[0].def.title) ? "left no" : "left"}><i><Left/></i><span>{rel[0].def.title}</span></Link> : null}
                 <span></span>
-                {rel[1] ? <Link to={`/articles/${rel[1].id}`} className={isC(rel[1].def.title) ? "right no" : "right"}><span>{rel[1].def.title}</span><Right/></Link> : null}
+                {rel[1] ? <Link to={`/articles/${rel[1].id}`} className={isC(rel[1].def.title) ? "right no" : "right"}><span>{rel[1].def.title}</span><i><Right/></i></Link> : null}
             </div>
             <div id="disqus_thread"></div>
         </div>

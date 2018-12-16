@@ -25,8 +25,8 @@ export class Header extends Component {
                 <span>{title}</span>
             </Link>
             <ul className="navbar">
-                { menu.map((v,i) => v[1].trim().startsWith("/") || v[1].trim().startsWith(prefix) ? 
-                    <li key={i}><Link to={v[1].replace(prefix, "") || "/"}>{v[0]}</Link></li> :
+                { menu.map((v,i) => v[1].trim().startsWith("/") ? // || v[1].trim().startsWith(prefix) ? 
+                    <li key={i}><Link to={v[1]}>{v[0]}</Link></li> :
                     <li key={i}><a href={v[1]}>{v[0]}</a></li>) }
             </ul>
         </div>

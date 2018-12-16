@@ -88,6 +88,20 @@ hr {
     li, tr {
         line-height: 2;
     }
+
+    li {
+        line-height: 2;
+        font-size: 14px;
+        @include phoneMedia {
+            font-size: 12px;
+        }
+    }
+
+    ul {
+        @include phoneMedia {
+            padding-left: 20px;
+        }
+    }
     
     table {
         

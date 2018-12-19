@@ -13,7 +13,7 @@ module.exports = {
     menu: [
         ["首页", "/"],
         ["主页", "https://yuuno.cc/i/"],
-        ["简历", "https://yuuno.cc/portfolio/"],
+        ["简历", "/portfolio/"],
         ["RSS", "https://yuuno.cc/atom.xml"],
         ["友链", "/articles/links"]
     ]

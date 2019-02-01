@@ -1,0 +1,15 @@
+$bgColor: #212118;
+$titleColor: #EFF;
+$articleColor: #cab181;
+$linkColor: #b3871d;
+
+.container {
+    .titlebar #article-title {
+        color: #e6c075 !important;
+    }
+    .article {
+        h1, h2, h3, h4, h5 {
+            color: #e6c075 !important;
+        }
+    }
+}

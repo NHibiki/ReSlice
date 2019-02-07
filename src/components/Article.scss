@@ -300,7 +300,7 @@ hr {
 
         &:hover {
             background-color: lighten($articleColor, 30%);
-            color: #f5f5f5;
+            color: lighten($bgColor, 5%);
             text-shadow: none;
             box-shadow: 0 5px 25px rgba(0, 0, 0, .2);
         }

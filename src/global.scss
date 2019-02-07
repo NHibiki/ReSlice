@@ -20,6 +20,9 @@ $footColor: #9AA;
 
 $ballSize: 16px;
 
+$searchBackground: #FFF;
+$searchColor: $articleColor;
+
 @font-face {
     font-family: 'Ubuntu';
     src: url('/fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
@@ -87,3 +90,5 @@ $ballSize: 16px;
         @content;
     };
 }
+
+@import 'plugin';

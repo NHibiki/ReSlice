@@ -9,6 +9,10 @@ public/documents/*
 public/feeds/*
 !public/feeds/.ignore
 
+# user plugins
+src/plugin.js
+src/plugin.scss
+
 # misc
 .DS_Store
 .env.local

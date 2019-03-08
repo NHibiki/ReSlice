@@ -9,7 +9,7 @@ export default class NotFoundPage extends Component {
     route() {
         getContent().then(content => {
             let route = content.article.sort[0];
-            this.props.history.push(`/articles/${route}`);
+            this.props.history.replace(`/articles/${route}`);
         }).catch(error => {
             console.log("Time Out!");
         });

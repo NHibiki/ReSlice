@@ -16,6 +16,7 @@ import { getContent, Settings, GF } from './lib/Api';
 import Plugin from './plugin';
 
 import './index.scss';
+import './registerServiceWorker';
 
 class ReSlice extends Component {
 

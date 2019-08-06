@@ -1,7 +1,7 @@
 module.exports = {
     title: "Yuuno Blog",
     author: "Yuuno Hibiki",
-    url: "https://i.yuuno.cc",
+    url: "https://yuuno.cc/i/",
     disqus: "shirokyu",
     base: "https://yuuno.cc/",
     rss: "atom",

@@ -1635,7 +1635,7 @@ compressible@~2.0.13:
 
 compression@^1.5.2:
   version "1.7.2"
-  resolved "http://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
+  resolved "https://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
   dependencies:
     accepts "~1.3.4"
     bytes "3.0.0"
@@ -4587,9 +4587,9 @@ markdown-escapes@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-1.0.2.tgz#e639cbde7b99c841c0bacc8a07982873b46d2122"
 
-marked@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.5.2.tgz#3efdb27b1fd0ecec4f5aba362bddcd18120e5ba9"
+marked@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.1.tgz#a63addde477bca9613028de4b2bc3629e53a0562"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"

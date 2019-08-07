@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Highlight from '../../node_modules/highlight.js/lib/index';
 
 import Right from 'react-icons/lib/fa/angle-right';
 import Left  from 'react-icons/lib/fa/angle-left';
@@ -104,7 +103,9 @@ export default class Article extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.highlight) return;
+        const Highlight = window.hljs;
+        if (!Highlight || !this.highlight) return;
+
         document.querySelectorAll('pre code').forEach(block => {
             Highlight.highlightBlock(block);
             var mhtml = block.innerHTML;

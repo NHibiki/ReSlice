@@ -17,7 +17,7 @@ export class Header extends Component {
         const title  = this.props.title  || "ReSlice";
         const menu   = this.props.menu   || [];
 
-        const prefix = window.location.protocol + "//" + window.location.host;
+        // const prefix = window.location.protocol + "//" + window.location.host;
 
         return <div className="header">
             <Link to="/">

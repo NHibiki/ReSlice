@@ -3,12 +3,11 @@
   "version": "2.1.0",
   "private": true,
   "dependencies": {
-    "highlight.js": "^9.12.0",
-    "marked": "^0.5.2",
+    "marked": "^0.6.1",
     "node-sass": "^4.8.3",
     "nprogress": "^0.2.0",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1",
+    "react-dom": "^16.4.2",
     "react-icons": "^2.2.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -21,7 +20,8 @@
     "rehype-stringify": "^3.0.0",
     "remark-parse": "^5.0.0",
     "remark-rehype": "^3.0.0",
-    "unified": "^7.0.0"
+    "unified": "^7.0.0",
+    "webpack-bundle-analyzer": "^3.4.1"
   },
   "scripts": {
     "deploy": "sh ./autobuild.sh",

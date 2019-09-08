@@ -14,7 +14,8 @@ var env = new nunjucks.Environment();
 var info = (v) => console.log('\x1B[32m\[ReSlice\]\x1B[39m', v);
 var info2 = (v) => console.log('\x1B[33m\[ReSlice\]\x1B[39m', v);
 var error = (v) => console.log('\x1B[31m\[ReSlice\]\x1B[39m Error:', v);
-var parseCol = (line) => line.trim().split(":").length === 1 ? [null, line.substr(line.indexOf("-") + 1).trim()] : [line.substr(0, line.indexOf(":")).trim() || null, line.substr(line.indexOf(":") + 1).trim() || null];
+var trimBoth = (s, e) => !s ? '' : s.startsWith(e) && s.endsWith(e) ? s.substr(1,s.length-2) : s;
+var parseCol = (line) => line.trim().split(":").length === 1 ? [null, line.substr(line.indexOf("-") + 1).trim()] : [line.substr(0, line.indexOf(":")).trim() || null, trimBoth(line.substr(line.indexOf(":") + 1).trim(), '"') || null];
 var reflact = (to, from, key) => {
     if (!to[key]) to[key] = new Object();
     from[key].forEach(item => {

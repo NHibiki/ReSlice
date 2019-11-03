@@ -5,40 +5,68 @@ let FetchingState = 0;
 export const Settings = config;
 export var GF = {};
 
-export var EMPTY = {title:null, tags:null, categories:null, date:null, id:null};
+export var EMPTY = {
+    title: null,
+    tags: null,
+    categories: null,
+    date: null,
+    id: null
+};
 
-let initArticles = function() {
+let initArticles = function () {
     if (!Content.article) {
         FetchingState = 1;
         fetch("/content.json")
             .then(res => res.json())
-            .then(data => { Content = data; FetchingState = 0; })
-            .catch(error => { Content = {}; FetchingState = 0; });
+            .then(data => {
+                Content = data;
+                FetchingState = 0;
+            })
+            .catch(error => {
+                Content = {};
+                FetchingState = 0;
+            });
     }
 }
 initArticles();
 
-export function fetchContent(id, callback=()=>{}) {
+export function fetchContent(id, callback = () => {}) {
+    const githubId = getGitHubID();
     return new Promise((resolve, reject) => {
-        fetch(`/documents/${id}.md`)
+        fetch(githubId ?
+                `https://raw.githubusercontent.com/${githubId}/${githubId}.github.io/master/documents/${id}.md` :
+                `/documents/${id}.md`)
             .then(res => res.text())
-            .then(data => { callback(data); resolve(data); })
-            .catch(error => { callback(error); reject(error); });
+            .then(data => {
+                callback(data);
+                resolve(data);
+            })
+            .catch(error => {
+                callback(error);
+                reject(error);
+            });
     });
 }
 
-export function getContent(callback=()=>{}) {
+export function getContent(callback = () => {}) {
     return new Promise((resolve, reject) => {
-        if (!FetchingState) { callback(Content); resolve(Content); }
-        else {
+        if (!FetchingState) {
+            callback(Content);
+            resolve(Content);
+        } else {
             let currentTime = 0;
             let currentInterval = setInterval(() => {
                 currentTime++;
                 if (currentTime > 100 || !FetchingState) {
                     clearInterval(currentInterval);
                     FetchingState = 0;
-                    if (Content.article) { callback(Content); resolve(Content); }
-                    else { callback(null); reject(null); }
+                    if (Content.article) {
+                        callback(Content);
+                        resolve(Content);
+                    } else {
+                        callback(null);
+                        reject(null);
+                    }
                 }
             }, 100);
         }
@@ -70,8 +98,8 @@ export function searchFor(text) {
                 .filter(id => {
                     let article = content.article.articles[id];
                     return article.tags.join("").toLocaleLowerCase().includes(text) ||
-                           article.categories.join("").toLocaleLowerCase().includes(text) ||
-                           article.title.join("").toLocaleLowerCase().includes(text);
+                        article.categories.join("").toLocaleLowerCase().includes(text) ||
+                        article.title.join("").toLocaleLowerCase().includes(text);
                 })
                 .map(id => content.article.articles[id]);
             resolve(res);
@@ -89,4 +117,19 @@ export function timePad(i) {
 export function showTime(time) {
     let t = new Date(time);
     return `${t.getFullYear()}-${timePad(t.getMonth()+1)}-${timePad(t.getDate())} ${timePad(t.getHours())}:${timePad(t.getMinutes())}:${timePad(t.getSeconds())}`;
+}
+
+export function getGitHubID() {
+    try {
+        const loc = window.location.hostname.indexOf('.github.io');
+        if (window.GITHUBID) {
+            return window.GITHUBID;
+        } else if (loc > 0) {
+            return window.location.hostname.substr(0, loc);
+        } else {
+            return false;
+        }
+    } catch (err) {
+        return false;
+    }
 }

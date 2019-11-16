@@ -16,7 +16,7 @@ export var EMPTY = {
 let initArticles = function () {
     if (!Content.article) {
         FetchingState = 1;
-        fetch("/content.json")
+        fetch(isCDN('basic') ? `${window.CDN}/content.json` : "/content.json")
             .then(res => res.json())
             .then(data => {
                 Content = data;
@@ -30,12 +30,30 @@ let initArticles = function () {
 }
 initArticles();
 
+/**
+ * If such condition is under CDN
+ * @param {string} cfg Config, can be ['media', 'basic', 'md']
+ */
+export function isCDN(cfg) {
+    if (!window.CDN) return false;
+    const types = (window.CDNTYPE && window.CDNTYPE instanceof Array) 
+        ? window.CDNTYPE
+        : ['media'];
+    const match = types.indexOf(cfg) !== -1;
+    return match;
+}
+
 export function fetchContent(id, callback = () => {}) {
     const githubId = getGitHubID();
     return new Promise((resolve, reject) => {
-        fetch(githubId ?
-                `https://raw.githubusercontent.com/${githubId}/${githubId}.github.io/master/documents/${id}.md` :
-                `/documents/${id}.md`)
+        const contentURL = githubId
+            ? `https://raw.githubusercontent.com/${githubId}/${githubId}.github.io/master/documents/${id}.md`
+            : (
+                isCDN('md')
+                ? `${window.CDN}/documents/${id}.md`
+                : `/documents/${id}.md`
+            )
+        fetch(contentURL)
             .then(res => res.text())
             .then(data => {
                 callback(data);

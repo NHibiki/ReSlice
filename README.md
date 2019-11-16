@@ -65,6 +65,27 @@ yarn deploy
 
 即可在 `./ReSlice` 下生成 `build` 文件夹。里面就是一个完整的网站。
 
+## 更多设置
+
+如果你希望将你的博客部署到不同的地方（服务器），并且修改配置，但又不希望因为改变了配置而导致需要重新生成站点，这里就是你需要阅读的地方：
+
+在 `index.html` 文件中，你可以配置一些全局变量来使你的网站达到最优效果。只需要做的仅仅是在 `<script>` 标签中设置它们。如果您未设置它们，则它们会以 `config.js` 中的值为基准：
+
+```html
+<script>
+    window.GITHUBID = 'nhibiki';
+    // 这个设置可以帮助路由您所有的md文件到 raw.githubusercontent.com 以避免在您将网站部署到 github pages 时无法读取源 markdown 文件的问题
+
+    window.DISABLEDISQUS = true;
+    // 这个设置可以帮您在必要的时候关闭 disqus 的加载
+
+    window.CDN = 'https://yuuno.cc';
+    // 这个设置可以启用当前站点的 CDN（注意！这不代表这个配置会帮您搭建 CDN！这仅仅意味着网站内配置的链接前缀会被更换到 https://yuuno.cc 而已）
+
+    window.CDNTYPE = ['basic', 'md', 'media'];
+    // 这个设置可以让您自定义 CDN 的过滤器，默认配置为 ['media']，代表 markdown 中以当前 URL 开头或是未指定 URL 的 图片/视频 会被开启 CDN。'basic', 'md' 代表网站的基本配置 / 和文章的 markdown 会被开启 CDN。（注意！如果开启这两项，请确保您的 CDN 支持源站的跨域请求！）
+</script>
+```
 
 ## TODO
 

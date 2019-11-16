@@ -5,19 +5,64 @@ import Right from 'react-icons/lib/fa/angle-right';
 import Left  from 'react-icons/lib/fa/angle-left';
 
 import marked from 'marked';
-import { fetchContent as fetchContentApi, getContent, EMPTY, switchTitle, isC, GF, Settings, showTime } from '../lib/Api';
+import {
+    fetchContent as fetchContentApi,
+    getContent,
+    EMPTY,
+    switchTitle,
+    isC,
+    GF,
+    Settings,
+    showTime,
+    isCDN
+} from '../lib/Api';
 import PageNavigator from './PageNavigator';
 import List from './List';
 
 import './Article.scss';
 
 const customizedHeading = / \{#[\S]+\}/;
-const mdRenderer = new marked.Renderer();                                                                                                                                 
-      mdRenderer.heading = function (text, level) {                                                                                                                       
-          let res = customizedHeading.exec(text);                                                                                                                         
-          if (!res || !res[0]) return `<h${level} id='${text.trim().replace(/[\s]+/g, "-").toLocaleLowerCase()}'>${text}</h${level}>`;                                                        
-          return `<h${level} id='${res[0].substr(3, res[0].length-4)}'>${text.replace(res[0], "")}</h${level}>`;                                                          
+const mdRenderer = new marked.Renderer();
+      mdRenderer.heading = function (text, level) {
+          let res = customizedHeading.exec(text);
+          if (!res || !res[0]) return `<h${level} id='${text.trim().replace(/[\s]+/g, "-").toLocaleLowerCase()}'>${text}</h${level}>`;
+          return `<h${level} id='${res[0].substr(3, res[0].length-4)}'>${text.replace(res[0], "")}</h${level}>`;
       };
+      mdRenderer.image = function(href, title, text) {
+          if (!href) return '';
+          let _href = href;
+          if (isCDN('media')) {
+            const protoUrl = _href.split('://');
+            if (protoUrl.length > 1 && protoUrl[0].match(/^[a-zA-Z]{1,10}$/)) {
+                // has protocol prefix
+                const restUrl = protoUrl.slice(1).join('://');
+                const host = restUrl.split('/')[0];
+                if (host === window.location.host) {
+                    href = window.CDN + '/' + restUrl.split('/').slice(1).join('/');
+                }
+            } else {
+                if (_href[0] === '/') {
+                    // absolute path
+                    if (_href[1] === '/') {
+                        // absolute path with URL
+                        const restUrl = _href.replace('//', '');
+                        const host = restUrl.split('/')[0];
+                        if (host === window.location.host) {
+                            href = window.CDN + '/' + restUrl.split('/').slice(1).join('/');
+                        }
+                    } else {
+                        // absolute path with no URL
+                        href = window.CDN + _href;
+                    }
+                } else {
+                    // relative path
+                    const paths = window.location.pathname.split('/');
+                    href = window.CDN + paths.slice(0, paths.length - 1).join('/') + '/' + _href;
+                }
+            }
+          }
+          return `<img src="${href}" title="${title}" alt="${text}" />`
+      }
 
 export default class Article extends Component {
 
@@ -51,12 +96,13 @@ export default class Article extends Component {
     loadDisqus() {
         const SN  = Settings.disqus;
         const SID = "disqus_loading_script";
-        if (!SN) return;
+        if (!SN || window.DISABLEDISQUS) return;
         var d = document, s = d.createElement('script'), ps = document.getElementById(SID);
         if (ps) ps.remove();
         s.id = SID;
         s.src = `https://${SN}.disqus.com/embed.js`;
         s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('async', true);
         d.head.appendChild(s);
     }
 

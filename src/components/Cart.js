@@ -30,9 +30,7 @@ export default class Cart extends Component {
             let articles = rawContent.article.articles;
             content.sort((a, b) => new Date(articles[a].date) < new Date(articles[b].date) ? 1 : -1);
             this.setState({content, articles});
-            setTimeout(() => {
-                GF.loader && GF.loader(false);
-            }, 1000);
+            GF.loader && GF.loader(false);
         }).catch(error => {
             console.log("Time Out!");
             GF.loader && GF.loader(false);

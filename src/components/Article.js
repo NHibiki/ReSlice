@@ -159,10 +159,8 @@ export default class Article extends Component {
             block.innerHTML = mhtml;
         });
         this.loadDisqus();
-        setTimeout(() => {
-            GF.loader && GF.loader(false);
-        }, 1000);
         this.highlight = false;
+        GF.loader && GF.loader(false);
     }
 
     render() {

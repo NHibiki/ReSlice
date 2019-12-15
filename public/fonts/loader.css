@@ -75,16 +75,19 @@
 @font-face {
   font-family: 'Ubuntu';
   src: url('/fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Ubuntu';
   src: url('/fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Ubuntu';
   src: url('/fonts/Ubuntu/Ubuntu-Bold.ttf') format('truetype');
   font-weight: bold;
+  font-display: swap;
 }

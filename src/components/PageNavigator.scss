@@ -8,7 +8,7 @@
     a {
         position: fixed;
         display: none;
-        @include pcLargeMedia {
+        @include pcLargeMediaLG {
             display: block;
         }
         font-size: $btnSize;

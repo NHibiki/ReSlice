@@ -4,6 +4,7 @@ public/sitemap.xml
 public/sitemap.txt
 public/rss2.xml
 public/atom.xml
+public/robots.txt
 public/documents/*
 !public/documents/.ignore
 public/feeds/*

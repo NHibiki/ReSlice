@@ -168,6 +168,23 @@ async function run() {
 
         info2(`Create SiteMap File 'sitemap.txt' ...`);
 
+        const robots = `
+# Group 1
+User-agent: Googlebot-Image
+Disallow: /
+
+# Group 2
+User-agent: *
+Disallow: /admin/
+
+# Group 3
+User-agent: *
+Allow: /
+
+Sitemap: ${config.base}sitemap.xml`;
+        fs.writeFileSync(`${__dirname}/public/robots.txt`, robots);
+        info2(`Create robots.txt for the site ...`);
+
     }
 
     info(`Save All Metas to content.json ...`);

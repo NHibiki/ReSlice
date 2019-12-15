@@ -250,6 +250,33 @@ hr {
 
 }
 
+button.btn {
+    color: lighten($articleColor, 30%);
+    background: transparent;
+    line-height: 40px;
+    font-size: $fontSize - 2px;
+    font-weight: bold;
+    padding: 0 2rem;
+    border: solid 1px lighten($articleColor, 30%);
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+
+    &:hover {
+        background-color: lighten($articleColor, 30%);
+        color: lighten($bgColor, 5%);
+        text-shadow: none;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, .2);
+    }
+
+    @include phoneMediaSearch {
+        padding: 0 1rem;
+        font-size: $fontSize - 4px;
+        line-height: 30px;
+    }
+}
+
 .pagenav {
 
     margin: 2em 0;

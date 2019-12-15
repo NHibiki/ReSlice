@@ -115,6 +115,8 @@ export default class Article extends Component {
         s.setAttribute('data-timestamp', +new Date());
         s.setAttribute('async', true);
         d.head.appendChild(s);
+        const btn = document.getElementById('load-comment');
+        if (btn) btn.remove();
     }
 
     fetchContent(id) {
@@ -169,7 +171,7 @@ export default class Article extends Component {
             mhtml = "<cbr>" + mhtml.trim().split("\n").join("</cbr>\n<cbr>") + "</cbr>";
             block.innerHTML = mhtml;
         });
-        this.loadDisqus();
+        // this.loadDisqus();
         this.highlight = false;
         GF.loader && GF.loader(false);
     }
@@ -195,6 +197,7 @@ export default class Article extends Component {
                 <span></span>
                 {rel[1] ? <Link to={`/articles/${rel[1].id}`} className={isC(rel[1].def.title) ? "right no" : "right"}><span>{rel[1].def.title}</span><i><Right/></i></Link> : null}
             </div>
+            <button id="load-comment" class="btn" onClick={this.loadDisqus.bind(this)}>LOAD COMMENTS</button>
             <div id="disqus_thread"></div>
         </div>
     }

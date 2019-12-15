@@ -2,10 +2,11 @@ $bgColor: #F8F8F8;
 $wdColor: #FF4F7F;
 $pageColor: #FFF;
 
-$pageSize: 780px;
+$pageSize: 1080px;
 $pageMaximum: 90%;
 
 $articleColor: #233;
+$darkColor: #333;
 $linkColor: #888;
 $tagColor: #65bd72;
 $catiColor: #ff6ac1;
@@ -70,6 +71,18 @@ $searchColor: $articleColor;
 
 @mixin pcLargeMedia {
     @media only screen and (min-width: 1080px) {
+        @content;
+    };
+}
+
+@mixin phoneMidMedia {
+    @media only screen and (max-width: 768px) {
+        @content;
+    };
+}
+
+@mixin pcMidMedia {
+    @media only screen and (min-width: 768px) {
         @content;
     };
 }

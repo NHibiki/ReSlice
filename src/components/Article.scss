@@ -76,9 +76,21 @@ hr {
     }
 
 
-    h1, h2, h3, h4, h5 {
+    h1, h2, h3, h4, h5, h6 {
         font-weight:bold;
+        position: relative;
         color: darken($articleColor, 5%);
+        &::before {
+            content: "#";
+            width: 1.3rem;
+            display: inline-block;
+            color: lighten($darkColor, 45%);
+            font-weight: 300;
+            margin-left: -1.3rem;
+            @include phoneMidMedia {
+                margin-left: 0;
+            }
+        }
     }
 
     h1, h2, h3 {
@@ -98,8 +110,11 @@ hr {
     }
 
     ul {
-        @include phoneMedia {
-            padding-left: 20px;
+        list-style-type: square;
+        padding-left: 20px;
+        color: lighten($darkColor, 20%);
+        strong, b {
+            color: $articleColor;
         }
     }
     
@@ -133,7 +148,7 @@ hr {
         line-height: 2;
         vertical-align: center;
         font-size: $fontSize;
-        font-weight: 300;
+        // font-weight: 300;
         /* font-family: sans-serif; */
         @include phoneMediaSearch {
             font-size: 14px;
@@ -155,13 +170,11 @@ hr {
         -webkit-margin-after: 0;
         -webkit-margin-start: 0;
         -webkit-margin-end: 0;
-        margin: 2em 0;
-        padding: 10px 30px;
-        // border-radius: 5px;
-
-        // color: $codeColor;
-        // background-color: $codeBack;
-        color: $codeBack;
+        
+        margin: 0 0 1.64em 0;
+        border-left: 3px solid lighten($darkColor, 60%);
+        padding-left: 12px;
+        color: lighten($darkColor, 20%);
 
         p {
             color: inherit;
@@ -169,16 +182,13 @@ hr {
         }
 
         a:hover {
-            // color: lighten($codeColor, 5%);
             color: lighten($codeBack, 5%);
         }
 
-        @include phoneMediaSearch {
-            font-size: 12px;
-            padding: 2px 10px;
-            p {
-                line-height: 1.4;
-            }
+        @include pcMidMedia {
+            margin-left: -1.3rem;
+            padding-left: calc(1.3rem - 4px);
+            border-width: 4px;
         }
 
     }
@@ -191,7 +201,7 @@ hr {
         }
 
         &:before {
-            content: "code";
+            content: attr(type);
             display: block;
             position: absolute;
             top: 13px;
@@ -220,11 +230,11 @@ hr {
         background-color: #556;
         -webkit-overflow-scrolling: touch;
 
-        cbr:before {
+        cbr::before {
             color: #888;
             display: inline-block;
             counter-increment: codeline;
-            content: counter(codeline) "." ;
+            content: counter(codeline) " " ;
             min-width: 25px;
             margin-left: -15px;
             margin-right: 5px;

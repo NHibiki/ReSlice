@@ -30,7 +30,7 @@
     }
 
     a.left {
-        left: calc(50% - 390px - #{$btnSize * $pivot});
+        left: calc(50% - #{$pageSize / 2} - #{$btnSize * $pivot});
         padding-right: 2px;
         &:hover:not(.no) {
             animation: shrinkleft .4s linear forwards;
@@ -38,7 +38,7 @@
     }
 
     a.right {
-        right: calc(50% - 390px - #{$btnSize * $pivot});
+        right: calc(50% - #{$pageSize / 2} - #{$btnSize * $pivot});
         padding-left: 2px;
         &:hover:not(.no) {
             animation: shrinkright .4s linear forwards;
@@ -47,12 +47,12 @@
 
     @keyframes shrinkleft {
         25% {
-            left: calc(50% - 390px - #{$btnSize * $pivot + $btnSize * 0.2});
+            left: calc(50% - #{$pageSize / 2} - #{$btnSize * $pivot + $btnSize * 0.2});
         }
         50% {
             background: rgba(255, 255, 255, 0);
             box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-            left: calc(50% - 390px - #{$btnSize * $pivot});
+            left: calc(50% - #{$pageSize / 2} - #{$btnSize * $pivot});
         }
         100% {
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
@@ -63,12 +63,12 @@
 
     @keyframes shrinkright {
         25% {
-            right: calc(50% - 390px - #{$btnSize * $pivot + $btnSize * 0.2});
+            right: calc(50% - #{$pageSize / 2} - #{$btnSize * $pivot + $btnSize * 0.2});
         }
         50% {
             background: rgba(255, 255, 255, 0);
             box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-            right: calc(50% - 390px - #{$btnSize * $pivot});
+            right: calc(50% - #{$pageSize / 2} - #{$btnSize * $pivot});
         }
         100% {
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);

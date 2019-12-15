@@ -25,8 +25,15 @@ const customizedHeading = / \{#[\S]+\}/;
 const mdRenderer = new marked.Renderer();
       mdRenderer.heading = function (text, level) {
           let res = customizedHeading.exec(text);
-          if (!res || !res[0]) return `<h${level} id='${text.trim().replace(/[\s]+/g, "-").toLocaleLowerCase()}'>${text}</h${level}>`;
-          return `<h${level} id='${res[0].substr(3, res[0].length-4)}'>${text.replace(res[0], "")}</h${level}>`;
+          let id = '';
+          if (!res || !res[0]) {
+              id = text.trim().replace(/[\s]+/g, "-").toLocaleLowerCase();
+          } else {
+              id = res[0].substr(3, res[0].length-4);
+              text = text.replace(res[0], "");
+          }
+          return `<h${level} id='${id}'>${text}</h${level}>`;
+          
       };
       mdRenderer.image = function(href, title, text) {
           if (!href) return '';
@@ -62,6 +69,10 @@ const mdRenderer = new marked.Renderer();
             }
           }
           return `<img src="${href}" title="${title}" alt="${text}" />`
+      };
+      mdRenderer._code = mdRenderer.code;
+      mdRenderer.code = function(code, infostring, escape) {
+          return mdRenderer._code(code, infostring, escape).replace(/<pre>/, `<pre type=${(infostring || 'CODE').toLocaleUpperCase()}>`);
       }
 
 export default class Article extends Component {

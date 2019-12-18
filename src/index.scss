@@ -51,3 +51,12 @@ body {
     }
 
 }
+
+*::selection {
+    background: $catiColor;
+    color: $pageColor;
+}
+
+a::selection {
+    background: lighten($catiColor, 35%);
+}

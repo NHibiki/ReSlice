@@ -182,7 +182,7 @@ hr {
         }
 
         a:hover {
-            color: lighten($codeBack, 5%);
+            color: lighten($codeColor, 5%);
         }
 
         @include pcMidMedia {
@@ -227,7 +227,7 @@ hr {
         padding: 1em 2em;
         line-height: 1.3em;
         counter-reset: codeline;
-        background-color: #556;
+        background-color: #eee;
         -webkit-overflow-scrolling: touch;
 
         cbr::before {

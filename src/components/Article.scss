@@ -155,10 +155,10 @@ hr {
         }
     }
 
-    p > code {
+    p code {
         font-size: $fontSize - 4px;
-        height: $fontSize;
-        line-height: $fontSize;
+        // height: $fontSize;
+        // line-height: $fontSize;
         padding: 2px 5px;
         border-radius: 2px;
         background-color: $codeBack;
@@ -227,10 +227,13 @@ hr {
         margin: 1em 0;
         padding: 1em 2em;
         line-height: 1.3em;
+        font-size: $fontSize - 3px;
         counter-reset: codeline;
-        background-color: #eee;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        
+        background-color: #eee;
+        color: #333;
 
         cbr::before {
             color: $codeIndexColor;

@@ -219,8 +219,9 @@ hr {
 
     }
 
-    pre code.hljs {
+    pre code, pre code.hljs {
 
+        display: block;
         position: relative;
         border-radius: 4px;
         margin: 1em 0;
@@ -228,6 +229,7 @@ hr {
         line-height: 1.3em;
         counter-reset: codeline;
         background-color: #eee;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
 
         cbr::before {

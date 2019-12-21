@@ -6,7 +6,7 @@
 ![NHibiki](https://img.shields.io/badge/Author-NHibiki-40aa00.svg?style=flat-square)
 ![Code](https://img.shields.io/badge/Code%20With-<3-ff0000.svg?style=flat-square)
 
-[样例](https://yuuno.cc) | [样例配置](https://github.com/NHibiki/blog) | [设计思路](https://yuuno.cc/articles/why-drop-hexo) | [使用方法](https://github.com/NHibiki/ReSlice#使用方法)
+[样例](https://yuuno.cc) | [样例配置](https://raw.githubusercontent.com/NHibiki/ReSlice/master/_config.example.js) | [设计思路](https://yuuno.cc/articles/why-drop-hexo) | [使用方法](https://github.com/NHibiki/ReSlice#使用方法)
 
 ## 迁移
 
@@ -94,7 +94,7 @@ yarn deploy
 - [x] 移动端适配
 - [x] 页面进度条
 - [x] disqus 评论支持
-- [ ] github 评论支持
+- ~~[ ] github 评论支持~~
 - [x] 页面分享功能
 - [x] 站点 RSS 生成
 - [x] 文章 RSS 生成

@@ -231,7 +231,7 @@ hr {
         -webkit-overflow-scrolling: touch;
 
         cbr::before {
-            color: #888;
+            color: $codeIndexColor;
             display: inline-block;
             counter-increment: codeline;
             content: counter(codeline) " " ;
@@ -243,7 +243,7 @@ hr {
         }
         
         cbr:hover::before {
-            color: white;
+            color: darken($codeIndexColor, 50%);
         }        
         
     }

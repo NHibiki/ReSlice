@@ -197,7 +197,7 @@ export default class Article extends Component {
                 <span></span>
                 {rel[1] ? <Link to={`/articles/${rel[1].id}`} className={isC(rel[1].def.title) ? "right no" : "right"}><span>{rel[1].def.title}</span><i><Right/></i></Link> : null}
             </div>
-            <button id="load-comment" class="btn" onClick={this.loadDisqus.bind(this)}>LOAD COMMENTS</button>
+            <button id="load-comment" className="btn" onClick={this.loadDisqus.bind(this)}>LOAD COMMENTS</button>
             <div id="disqus_thread"></div>
         </div>
     }

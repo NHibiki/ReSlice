@@ -5,6 +5,8 @@ import { scrollToTop, searchFor, isC, showTime } from '../lib/Api';
 
 import Twitter from 'react-icons/lib/fa/twitter';
 import Facebook from 'react-icons/lib/fa/facebook';
+import Sun from 'react-icons/lib/fa/sun-o';
+import Moon from 'react-icons/lib/fa/moon-o';
 // import Telegram from './Telegram.svg';
 
 import Up from 'react-icons/lib/fa/arrow-up';
@@ -31,6 +33,20 @@ class Telegram extends Component {
 
 export default class ToolBar extends Component {
 
+    constructor(props) {
+        super(props);
+        let invert = false;
+        try {
+            invert = !!localStorage.getItem('darkmode');
+            if (invert) {
+                window.document.body.classList.add('invert');
+            }
+        } catch(err) {}
+        this.state = {
+            invert
+        };
+    }
+
     showSearch() {
         this.refs.search && this.refs.search.show();
     }
@@ -43,6 +59,22 @@ export default class ToolBar extends Component {
         }
     }
 
+    invert() {
+        const invert = !this.state.invert;
+        this.setState({
+            invert
+        }, () => {
+            if (invert) {
+                window.document.body.classList.add('invert');
+            } else {
+                window.document.body.classList.remove('invert');
+            }
+            try {
+                localStorage.setItem('darkmode', invert);
+            } catch(err) {}
+        });
+    }
+
     render() { 
         return <div>
             <ul className="toolbar">
@@ -52,7 +84,12 @@ export default class ToolBar extends Component {
                 <li onClick={this.shareClicked.bind(this, "facebook")}><Facebook /></li>
 
                 <li className="gap"></li>
-                
+
+                <li onClick={this.invert.bind(this)}>{
+                    this.state.invert
+                      ? <Sun />
+                      : <Moon />
+                }</li>
                 <li onClick={this.showSearch.bind(this)}><SearchIcon /></li>
                 <li onClick={scrollToTop}><Up /></li>
             </ul>

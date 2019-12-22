@@ -61,7 +61,7 @@ hr {
         text-decoration: none;
         color: $linkColor;
         transition: .2s linear;
-        text-shadow: 0 2px 5px rgba(red($linkColor), green($linkColor), blue($linkColor), .05);
+        text-shadow: 0 2px 5px rgba(red($linkColor), green($linkColor), blue($linkColor), .15);
         font-weight: 400;
         
         img {
@@ -69,8 +69,8 @@ hr {
         }
 
         &:hover {
-            color: darken($articleColor, 5%);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            color: darken($linkColor, 30%);
+            // text-shadow: 0 2px 4px rgba(0, 0, 0, .2);
         }
 
     }
@@ -182,7 +182,7 @@ hr {
         }
 
         a:hover {
-            color: lighten($codeColor, 5%);
+            color: darken($linkColor, 30%);
         }
 
         @include pcMidMedia {
@@ -349,4 +349,10 @@ button.btn {
 
     }
 
+}
+
+body.invert .container {
+    .article, .article a, .titlebar h1 {
+        filter: invert(1);
+    }
 }

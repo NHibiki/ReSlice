@@ -7,9 +7,9 @@ $pageMaximum: 90%;
 
 $articleColor: #233;
 $darkColor: #333;
-$linkColor: #888;
 $tagColor: #8f1eff; //#65bd72;
 $catiColor: #1f8dff; //#ff6ac1;
+$linkColor: mix($tagColor, $catiColor);
 $codeBack: #dadada;
 $codeColor: #111;
 $codeIndexColor: #888;

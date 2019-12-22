@@ -60,7 +60,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: $bgColor;
+    background-color: darken($bgColor, 3%);
     transition: .2s linear;
     pointer-events: all;
     z-index: 5;
@@ -109,7 +109,7 @@
             margin-right: 20px;
             border-radius: 5px;
             background-color: lighten($bgColor, 5%);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+            // box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
             transition: .2s linear;
 
             @include phoneMediaSearch {
@@ -120,7 +120,7 @@
             }
 
             &:hover {
-                transform: translateY(2px);
+                // transform: translateY(2px);
                 box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
             }
 
@@ -138,11 +138,11 @@
             }
 
             h4 {
-                color: $titleColor;
+                color: darken($articleColor, 50%);
             }
 
             small {
-                color: lighten($articleColor, 25%);
+                color: darken($articleColor, 5%);
                 text-align: right;
                 margin-top: 10px;
                 margin-bottom: -10px;
@@ -151,9 +151,10 @@
 
             span {
                 margin-top: 3px;
-                color: lighten($articleColor, 10%);
+                color: $articleColor;
+                font-weight: 100;
+                font-size: $fontSize - 3px;
                 font-family: sans-serif;
-                text-shadow: 0px 3px 5px rgba(0, 0, 0, .2);
             }
 
             .no {
@@ -163,4 +164,14 @@
         }
     }
 
+}
+
+body.invert {
+    .search, .search .toolbar {
+        filter: invert(1);
+    }
+
+    .search .searchResult .searchTag:hover {
+        box-shadow: 0 3px 5px rgb(255, 255, 255);
+    }
 }

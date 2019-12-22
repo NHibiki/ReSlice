@@ -50,6 +50,10 @@ body {
 
     }
 
+    &.invert {
+        background: invert($bgColor);
+    }
+
 }
 
 *::selection {

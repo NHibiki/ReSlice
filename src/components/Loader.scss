@@ -68,3 +68,7 @@
     }
 
 }
+
+body.invert .loader {
+    filter: invert(1);
+}

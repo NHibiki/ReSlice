@@ -13,3 +13,15 @@ if (isSupportServiceWorker()) {
 } else {
     console.info('Browser not support Service Worker.');
 }
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    e.prompt();
+    e.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the prompt');
+        } else {
+            console.log('User dismissed the prompt');
+        }
+    });
+});

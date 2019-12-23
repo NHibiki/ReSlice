@@ -70,7 +70,7 @@ export default class ToolBar extends Component {
                 window.document.body.classList.remove('invert');
             }
             try {
-                localStorage.setItem('darkmode', invert);
+                localStorage.setItem('darkmode', invert ? 'true' : '');
             } catch(err) {}
         });
     }

@@ -51,7 +51,8 @@ body {
     }
 
     &.invert {
-        background: invert($bgColor);
+        background: #000;
+        // background: invert($bgColor);
     }
 
 }

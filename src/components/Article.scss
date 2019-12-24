@@ -352,7 +352,7 @@ button.btn {
 }
 
 body.invert .container {
-    .article, .article a, .titlebar h1 {
+    .article, .article a, .article img, .titlebar h1 {
         filter: invert(1);
     }
 }

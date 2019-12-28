@@ -60,6 +60,8 @@ class ReSlice extends Component {
                     <Route exact path="/articles/:id" component={Article}/>
                     <Route exact path="/tags/:id" component={Cart}/>
                     <Route exact path="/categories/:id" component={Cart}/>
+                    <Route exact path="/tags" component={Cart}/>
+                    <Route exact path="/categories" component={Cart}/>
                     {Plugin.filter(p => p && p.entrypoint && p.component).map(p => {
                         return (<Route exact key={p.entrypoint} path={p.entrypoint} component={_ => <PluginWrapper component={p.component} />} />);
                     })}

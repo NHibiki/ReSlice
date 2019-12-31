@@ -37,7 +37,7 @@ module.exports = {
     articleRss: true, //(是否为每一篇文章都生成单独的 rss)
     feedContent: false, //(是否把文章内容写入站点 rss)
     siteMap: true, //(是否生成站点地图)
-    avatar: "/favicon.png(作者头像路径)",
+    avatar: "/favicon.jpg(作者头像路径)",
     license: "Creative Commons Attribution-NonCommercial 4.0 International License(你的版权解释)",
     menu: [
         ["链接名称", "链接路径,可以相对可以绝对,案例如下"],

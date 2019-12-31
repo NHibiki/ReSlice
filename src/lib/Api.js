@@ -13,13 +13,32 @@ export var EMPTY = {
     id: null
 };
 
-let initArticles = function () {
+const fetchWithCache = function (url) {
+    const cacheId = `rsc-${url}`;
+    return new Promise(function (resolve, reject) {
+        fetch(url)
+            .then(resp => resp.text())
+            .then(data => {
+                localStorage.setItem(cacheId, data);
+                resolve(data);
+            })
+            .catch(err => {
+                const cacheRes = localStorage.getItem(cacheId);
+                if (cacheRes) {
+                    resolve(cacheRes);
+                } else {
+                    reject(err);
+                }
+            });
+    });
+}
+
+const initArticles = function () {
     if (!Content.article) {
         FetchingState = 1;
-        fetch(isCDN('basic') ? `${window.CDN}/content.json` : "/content.json")
-            .then(res => res.json())
+        fetchWithCache(isCDN('basic') ? `${window.CDN}/content.json` : "/content.json")
             .then(data => {
-                Content = data;
+                Content = JSON.parse(data);
                 FetchingState = 0;
             })
             .catch(error => {
@@ -53,8 +72,7 @@ export function fetchContent(id, callback = () => {}) {
                 ? `${window.CDN}/documents/${id}.md`
                 : `/documents/${id}.md`
             )
-        fetch(contentURL)
-            .then(res => res.text())
+        fetchWithCache(contentURL)
             .then(data => {
                 callback(data);
                 resolve(data);

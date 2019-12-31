@@ -13,7 +13,7 @@ export class Header extends Component {
 
     render() {
 
-        const avatar = this.props.avatar || "/favicon.png";
+        const avatar = this.props.avatar || "/favicon.jpg";
         const title  = this.props.title  || "ReSlice";
         const menu   = this.props.menu   || [];
 
